@@ -10,7 +10,7 @@ const FALLBACK_PROJECTS = [
       'Designed an agentic coverage gap analyzer in LangGraph that parses functional coverage reports and suggests UVM constrained-random stimulus to close uncovered bins.',
     ],
     tags: ['LangChain', 'LangGraph', 'RAG', 'ChromaDB', 'Claude'],
-    github: 'https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER',
+    github: 'https://github.com/Dhirajzen/dv-rag-assistant',
     order: 1,
   },
   {
@@ -23,7 +23,7 @@ const FALLBACK_PROJECTS = [
       'Achieved functional coverage closure validating protocol compliance across read and write channels.',
     ],
     tags: ['SystemVerilog', 'UVM', 'AXI4-Lite', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER',
+    github: 'https://github.com/Dhirajzen/AXI4-UVM-Verification',
     order: 2,
   },
   {
@@ -36,7 +36,7 @@ const FALLBACK_PROJECTS = [
       'Achieved 100% Functional Coverage across address and data cross-bins during coverage closure.',
     ],
     tags: ['SystemVerilog', 'UVM', 'APB', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER',
+    github: 'https://github.com/Dhirajzen/Design-Verification-Projects',
     order: 3,
   },
   {
@@ -49,7 +49,7 @@ const FALLBACK_PROJECTS = [
       'Stress-tested under asynchronous reset, clock skew, and boundary conditions ensuring CDC robustness.',
     ],
     tags: ['SystemVerilog', 'SVA', 'CDC', 'Asynchronous FIFO'],
-    github: 'https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER',
+    github: 'https://github.com/Dhirajzen/Asynchronous-FIFO',
     order: 4,
   },
   {
@@ -62,7 +62,7 @@ const FALLBACK_PROJECTS = [
       'Verified protocol compliance during reset recovery and corner-case timing scenarios.',
     ],
     tags: ['SystemVerilog', 'UVM', 'SPI', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER',
+    github: 'https://github.com/Dhirajzen/Design-Verification-Projects',
     order: 5,
   },
 ];
