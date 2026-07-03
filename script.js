@@ -229,7 +229,7 @@ function initProjectsSection() {
 
 // ===== Mobile / reduced-motion fallback: simple IO-driven fades =====
 function initIOFallback() {
-  document.body.classList.add('use-css-reveal');
+  document.documentElement.classList.add('use-css-reveal');
   const targets = document.querySelectorAll('[data-reveal]');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -273,7 +273,7 @@ function initAnimations() {
       const io = initIOFallback();
       return () => {
         io.disconnect();
-        document.body.classList.remove('use-css-reveal');
+        document.documentElement.classList.remove('use-css-reveal');
       };
     }
   );

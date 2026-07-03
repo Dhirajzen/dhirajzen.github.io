@@ -24,7 +24,10 @@
 
 /* ===== Reset ===== */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* scroll-behavior: smooth stays OFF by default — Lenis (desktop) does its own
+   frame-by-frame scrolling and native smooth-scroll fights it, causing janky
+   stuck/jump behavior. Only enabled in the no-Lenis fallback path below. */
+html { scroll-behavior: auto; }
 body {
   margin: 0;
   font-family: var(--font-system);
@@ -339,6 +342,14 @@ html.js [data-reveal].is-visible {
   html.js [data-reveal] { transform: none; }
 }
 
+/* Native smooth-scroll (for the "skip to content" anchor) is only safe when
+   Lenis isn't running — i.e. the fallback path, and only when the user
+   hasn't asked for reduced motion. */
+html.use-css-reveal { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html.use-css-reveal { scroll-behavior: auto; }
+}
+
 /* ===== Skills pinned horizontal scrub (desktop-only, JS-enhanced) ===== */
 .skills-track.is-pinned {
   display: flex;
@@ -348,9 +359,4 @@ html.js [data-reveal].is-visible {
 }
 .skills-track.is-pinned .skill-panel {
   min-width: min(80vw, 480px);
-}
-
-/* ===== Reduced motion: strip smooth-scroll anchor easing ===== */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
 }
