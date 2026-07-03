@@ -1,5 +1,5 @@
 // Kept in sync with projects.json manually — used only if the fetch fails,
-// so the Featured Projects section still renders its 5 fixed pinned moments.
+// so the Featured Projects section still renders all 5 entries.
 const FALLBACK_PROJECTS = [
   {
     id: 'llm-verification-assistant',
@@ -168,65 +168,6 @@ function initHero() {
     .to('.hero-links', { opacity: 1, y: 0 }, '-=0.5');
 }
 
-// ===== Skills: pinned horizontal scrub through 6 categories =====
-function initSkillsPin() {
-  const section = document.querySelector('#skills');
-  const track = document.querySelector('.skills-track');
-  const panels = gsap.utils.toArray('.skill-panel');
-  if (!section || !track || !panels.length) return null;
-
-  track.classList.add('is-pinned');
-  gsap.set(panels, { opacity: 0.3 });
-  gsap.set(panels[0], { opacity: 1 });
-
-  const scrollDistance = () => (track.scrollWidth - window.innerWidth) * 0.6;
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: () => '+=' + scrollDistance(),
-      scrub: 1,
-      pin: true,
-      anticipatePin: 1,
-      invalidateOnRefresh: true,
-    },
-  });
-
-  tl.to(track, { x: () => -(track.scrollWidth - window.innerWidth), ease: 'none' });
-
-  panels.forEach((panel, i) => {
-    if (i === 0) return;
-    const position = i / panels.length - 0.15;
-    tl.to(panel, { opacity: 1, duration: 0.3 }, position)
-      .to(panels[i - 1], { opacity: 0.3, duration: 0.3 }, position);
-  });
-
-  return () => track.classList.remove('is-pinned');
-}
-
-// ===== Featured Projects: each card pins and crossfades in turn =====
-function initProjectsSection() {
-  const cards = gsap.utils.toArray('.project-card');
-  if (!cards.length) return;
-
-  cards.forEach((card) => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: card,
-        start: 'top top',
-        end: '+=60%',
-        scrub: true,
-        pin: true,
-        pinSpacing: true,
-      },
-    })
-      .fromTo(card, { opacity: 0 }, { opacity: 1, duration: 0.2 })
-      .to(card, { opacity: 1, duration: 0.6 })
-      .to(card, { opacity: 0, duration: 0.2 });
-  });
-}
-
 // ===== Mobile / reduced-motion fallback: simple IO-driven fades =====
 function initIOFallback() {
   document.documentElement.classList.add('use-css-reveal');
@@ -258,16 +199,13 @@ function initAnimations() {
         initLenis();
         initHero();
         batchReveal('#about [data-reveal]');
-        const skillsCleanup = initSkillsPin();
-        initProjectsSection();
+        batchReveal('#skills [data-reveal]');
+        batchReveal('#projects [data-reveal]');
         batchReveal('#experience [data-reveal], #education [data-reveal]');
         batchReveal('#contact [data-reveal]');
         ScrollTrigger.refresh();
 
-        return () => {
-          destroyLenis();
-          if (skillsCleanup) skillsCleanup();
-        };
+        return () => destroyLenis();
       }
 
       const io = initIOFallback();
