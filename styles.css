@@ -24,10 +24,10 @@
 
 /* ===== Reset ===== */
 *, *::before, *::after { box-sizing: border-box; }
-/* scroll-behavior: smooth stays OFF by default — Lenis (desktop) does its own
-   frame-by-frame scrolling and native smooth-scroll fights it, causing janky
-   stuck/jump behavior. Only enabled in the no-Lenis fallback path below. */
-html { scroll-behavior: auto; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
 body {
   margin: 0;
   font-family: var(--font-system);
@@ -66,6 +66,54 @@ button:focus-visible {
   border-radius: 2px;
 }
 
+/* ===== Site nav ===== */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem clamp(1.5rem, 5vw, 4rem);
+  background: rgba(245, 245, 247, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(29, 29, 31, 0.08);
+}
+.site-nav__brand {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+.site-nav__links {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+}
+.site-nav__links a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-dark-muted);
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.site-nav__links a:hover { color: var(--accent-on-light); }
+.site-nav__resume {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: var(--text-dark);
+  color: var(--bg-light);
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.site-nav__resume:hover { background: var(--accent-on-light); }
+
+@media (max-width: 639px) {
+  .site-nav__links { display: none; }
+}
+
 /* ===== Layout helpers ===== */
 header.hero,
 main > section,
@@ -73,6 +121,7 @@ footer#contact {
   padding: var(--section-padding-y) var(--container-padding-x);
   max-width: var(--container-width);
   margin: 0 auto;
+  scroll-margin-top: 4.5rem;
 }
 
 main > section + section,
@@ -318,19 +367,15 @@ footer#contact p {
   }
 }
 
-/* ===== Reveal states (motion system) =====
+/* ===== Reveal on scroll =====
    [data-reveal] content is visible by default so a no-JS visitor sees
    everything. The hidden baseline only applies once html.js confirms
-   script executed (set synchronously in <head>, see index.html) — GSAP
-   (desktop) can then tween from that baseline with no gsap.set() needed,
-   while the IO fallback path (mobile / prefers-reduced-motion) adds
-   .use-css-reveal to scope a CSS transition, so the two paths never fight
-   over the same properties. */
+   script executed (set synchronously in <head>, see index.html) — an
+   IntersectionObserver (script.js) then adds .is-visible as each element
+   scrolls into view. */
 html.js [data-reveal] {
   opacity: 0;
   transform: translateY(24px);
-}
-.use-css-reveal [data-reveal] {
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 html.js [data-reveal].is-visible {
@@ -338,14 +383,21 @@ html.js [data-reveal].is-visible {
   transform: translateY(0);
 }
 @media (prefers-reduced-motion: reduce) {
-  .use-css-reveal [data-reveal] { transition: opacity 0.4s ease; transform: none; }
-  html.js [data-reveal] { transform: none; }
+  html.js [data-reveal] { transition: opacity 0.4s ease; transform: none; }
 }
 
-/* Native smooth-scroll (for the "skip to content" anchor) is only safe when
-   Lenis isn't running — i.e. the fallback path, and only when the user
-   hasn't asked for reduced motion. */
-html.use-css-reveal { scroll-behavior: smooth; }
+/* Hero elements are already in view at load, so they all "intersect"
+   almost immediately — stagger them with transition-delay to preserve the
+   sequential build-in (headline, then pill, then subtitle, then links). */
+html.js .hero-headshot[data-reveal] { transition-delay: 0s; }
+html.js header.hero h1[data-reveal] { transition-delay: 0.15s; }
+html.js .status-pill[data-reveal] { transition-delay: 0.3s; }
+html.js .hero-subtitle[data-reveal] { transition-delay: 0.35s; }
+html.js .hero-links[data-reveal] { transition-delay: 0.4s; }
 @media (prefers-reduced-motion: reduce) {
-  html.use-css-reveal { scroll-behavior: auto; }
+  html.js .hero-headshot[data-reveal],
+  html.js header.hero h1[data-reveal],
+  html.js .status-pill[data-reveal],
+  html.js .hero-subtitle[data-reveal],
+  html.js .hero-links[data-reveal] { transition-delay: 0s; }
 }

@@ -120,57 +120,11 @@ async function loadProjects() {
   container.replaceChildren(...projects.map(renderProjectCard));
 }
 
-// ===== Lenis (smooth inertia scroll) =====
-let lenis = null;
-
-function lenisRaf(time) {
-  if (lenis) lenis.raf(time * 1000);
-}
-
-function initLenis() {
-  lenis = new Lenis({ duration: 0.8, smoothWheel: true });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(lenisRaf);
-  gsap.ticker.lagSmoothing(0);
-}
-
-function destroyLenis() {
-  if (!lenis) return;
-  gsap.ticker.remove(lenisRaf);
-  lenis.destroy();
-  lenis = null;
-}
-
-// ===== Shared batch-reveal for non-pinned sections =====
-function batchReveal(selector) {
-  const targets = gsap.utils.toArray(selector);
-  if (!targets.length) return;
-  ScrollTrigger.batch(targets, {
-    start: 'top 85%',
-    once: true,
-    onEnter: (batch) => gsap.to(batch, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power2.out',
-    }),
-  });
-}
-
-// ===== Hero: builds in on load =====
-function initHero() {
-  gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } })
-    .to('.hero-headshot', { opacity: 1, y: 0 })
-    .to('header.hero h1', { opacity: 1, y: 0 }, '-=0.6')
-    .to('.status-pill', { opacity: 1, y: 0 }, '-=0.5')
-    .to('.hero-subtitle', { opacity: 1, y: 0 }, '-=0.5')
-    .to('.hero-links', { opacity: 1, y: 0 }, '-=0.5');
-}
-
-// ===== Mobile / reduced-motion fallback: simple IO-driven fades =====
-function initIOFallback() {
-  document.documentElement.classList.add('use-css-reveal');
+// ===== Reveal on scroll: single IntersectionObserver-driven system =====
+// Hero elements have a staggered transition-delay (see styles.css) so they
+// "build in" sequentially the moment they're observed, since they're already
+// in view at load. Everything else fades in as it scrolls into view.
+function initReveal() {
   const targets = document.querySelectorAll('[data-reveal]');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -181,48 +135,10 @@ function initIOFallback() {
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
   targets.forEach((target) => io.observe(target));
-  return io;
-}
-
-// ===== Breakpoint / reduced-motion gate =====
-function initAnimations() {
-  gsap.registerPlugin(ScrollTrigger);
-  const mm = gsap.matchMedia();
-
-  mm.add(
-    {
-      isDesktop: '(min-width: 768px) and (prefers-reduced-motion: no-preference)',
-      isLightweight: '(max-width: 767px), (prefers-reduced-motion: reduce)',
-    },
-    (context) => {
-      if (context.conditions.isDesktop) {
-        initLenis();
-        initHero();
-        batchReveal('#about [data-reveal]');
-        batchReveal('#skills [data-reveal]');
-        batchReveal('#projects [data-reveal]');
-        batchReveal('#experience [data-reveal], #education [data-reveal]');
-        batchReveal('#contact [data-reveal]');
-        ScrollTrigger.refresh();
-
-        return () => destroyLenis();
-      }
-
-      const io = initIOFallback();
-      return () => {
-        io.disconnect();
-        document.documentElement.classList.remove('use-css-reveal');
-      };
-    }
-  );
 }
 
 // ===== Bootstrap =====
 document.addEventListener('DOMContentLoaded', async () => {
   await loadProjects();
-  initAnimations();
+  initReveal();
 });
-
-// Late-loading images (e.g. the hero headshot) can shift layout after the
-// initial refresh; re-measure once everything has actually finished loading.
-window.addEventListener('load', () => ScrollTrigger.refresh());

@@ -19,20 +19,29 @@
   <meta name="twitter:image" content="https://dhirajzen.github.io/og-image.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" integrity="sha384-B2WBjDzEjJpYvhmi2UyEn7rektqkf5suS6sNoyyrf0EBAwBHdkiXxIlU0V5Ru2ed" crossorigin="anonymous" defer></script>
-  <script type="module" src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+
+  <nav class="site-nav" aria-label="Section navigation">
+    <a href="#hero" class="site-nav__brand">DZ</a>
+    <div class="site-nav__links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="resume.pdf" class="site-nav__resume">Resume</a>
+  </nav>
 
   <header class="hero" id="hero">
     <img src="headshot.jpg" alt="Portrait of Dhirajzen Bagawath Geetha Kumaravel" class="hero-headshot" data-reveal width="144" height="144">
     <p class="status-pill" data-reveal>Open to full-time DV/RTL roles</p>
     <h1 data-reveal>Hi, I'm Dhirajzen — I verify chips, and I build the AI tools that help verify them faster.</h1>
     <p class="hero-subtitle" data-reveal>ASIC Design Verification Engineer · Brooklyn, NY</p>
-    <nav class="hero-links" aria-label="Primary links">
+    <nav class="hero-links" aria-label="Primary links" data-reveal>
       <a href="resume.pdf" class="hero-link hero-link--primary">Resume</a>
       <a href="https://github.com/Dhirajzen" class="hero-link">GitHub</a>
       <a href="https://linkedin.com/in/dhirajzen30" class="hero-link">LinkedIn</a>
