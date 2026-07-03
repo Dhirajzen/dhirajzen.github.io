@@ -161,7 +161,8 @@ function batchReveal(selector) {
 // ===== Hero: builds in on load =====
 function initHero() {
   gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } })
-    .to('header.hero h1', { opacity: 1, y: 0 })
+    .to('.hero-headshot', { opacity: 1, y: 0 })
+    .to('header.hero h1', { opacity: 1, y: 0 }, '-=0.6')
     .to('.status-pill', { opacity: 1, y: 0 }, '-=0.5')
     .to('.hero-subtitle', { opacity: 1, y: 0 }, '-=0.5')
     .to('.hero-links', { opacity: 1, y: 0 }, '-=0.5');
