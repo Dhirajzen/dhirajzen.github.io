@@ -128,7 +128,7 @@ function lenisRaf(time) {
 }
 
 function initLenis() {
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+  lenis = new Lenis({ duration: 0.8, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(lenisRaf);
   gsap.ticker.lagSmoothing(0);
@@ -179,7 +179,7 @@ function initSkillsPin() {
   gsap.set(panels, { opacity: 0.3 });
   gsap.set(panels[0], { opacity: 1 });
 
-  const scrollDistance = () => (track.scrollWidth - window.innerWidth) * 1.15;
+  const scrollDistance = () => (track.scrollWidth - window.innerWidth) * 0.6;
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -215,7 +215,7 @@ function initProjectsSection() {
       scrollTrigger: {
         trigger: card,
         start: 'top top',
-        end: '+=100%',
+        end: '+=60%',
         scrub: true,
         pin: true,
         pinSpacing: true,
@@ -284,3 +284,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadProjects();
   initAnimations();
 });
+
+// Late-loading images (e.g. the hero headshot) can shift layout after the
+// initial refresh; re-measure once everything has actually finished loading.
+window.addEventListener('load', () => ScrollTrigger.refresh());
