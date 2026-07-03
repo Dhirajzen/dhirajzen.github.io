@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhirajzen Bagawath Geetha Kumaravel — ASIC Design Verification Engineer</title>
+  <meta name="description" content="Dhirajzen Bagawath Geetha Kumaravel — ASIC Design Verification Engineer specializing in UVM, SystemVerilog, and AI/LLM tooling for verification. Open to full-time DV/RTL roles.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="hero" id="hero">
+    <p class="status-pill" data-reveal>Open to full-time DV/RTL roles</p>
+    <h1 data-reveal>Hi, I'm Dhirajzen — I verify chips, and I build the AI tools that help verify them faster.</h1>
+    <p class="hero-subtitle" data-reveal>ASIC Design Verification Engineer · Brooklyn, NY</p>
+    <!-- Optional headshot placeholder — add an image and uncomment when available:
+    <img src="headshot.jpg" alt="Portrait of Dhirajzen Bagawath Geetha Kumaravel" class="hero-headshot"> -->
+    <nav class="hero-links" aria-label="Primary links">
+      <a href="resume.pdf" class="hero-link hero-link--primary">Resume</a>
+      <a href="https://github.com/Dhirajzen" class="hero-link">GitHub</a>
+      <a href="https://linkedin.com/in/dhirajzen30" class="hero-link">LinkedIn</a>
+      <a href="mailto:db5309@nyu.edu" class="hero-link">Email</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading" data-reveal>About</h2>
+      <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon School of Engineering (Sept 2024 – May 2026), with a CGPA of 3.87/4.0. My coursework spans Generative AI Based Chip Design, SoC Design, Computing Systems Architecture, VLSI Systems &amp; Architecture, and Analog IC Design.</p>
+      <p data-reveal>I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
+    </section>
+
+    <section id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading" data-reveal>Skills</h2>
+      <div class="skills-track">
+        <div class="skill-panel" data-reveal>
+          <h3>Languages</h3>
+          <ul class="tag-list">
+            <li>SystemVerilog</li>
+            <li>Verilog</li>
+            <li>Python</li>
+            <li>Tcl</li>
+          </ul>
+        </div>
+        <div class="skill-panel" data-reveal>
+          <h3>Verification</h3>
+          <ul class="tag-list">
+            <li>UVM</li>
+            <li>Constrained-Random Verification</li>
+            <li>SystemVerilog Assertions (SVA)</li>
+            <li>Functional Coverage</li>
+          </ul>
+        </div>
+        <div class="skill-panel" data-reveal>
+          <h3>Protocols</h3>
+          <ul class="tag-list">
+            <li>AXI4</li>
+            <li>AXI4-Lite</li>
+            <li>APB</li>
+            <li>SPI</li>
+            <li>I2C</li>
+          </ul>
+        </div>
+        <div class="skill-panel" data-reveal>
+          <h3>Tools</h3>
+          <ul class="tag-list">
+            <li>Synopsys VCS</li>
+            <li>Design Compiler</li>
+            <li>Cadence Xcelium</li>
+            <li>Genus</li>
+            <li>Innovus</li>
+            <li>Virtuoso</li>
+            <li>OpenLane</li>
+            <li>Xilinx Vivado</li>
+          </ul>
+        </div>
+        <div class="skill-panel" data-reveal>
+          <h3>AI/ML for Verification</h3>
+          <ul class="tag-list">
+            <li>LangChain</li>
+            <li>LangGraph</li>
+            <li>RAG</li>
+            <li>ChromaDB</li>
+            <li>Prompt Engineering</li>
+            <li>Anthropic API</li>
+          </ul>
+        </div>
+        <div class="skill-panel" data-reveal>
+          <h3>Hardware Concepts</h3>
+          <ul class="tag-list">
+            <li>RTL Design</li>
+            <li>Microarchitecture</li>
+            <li>Clock Domain Crossing (CDC)</li>
+            <li>Static Timing Analysis (STA)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects-section" aria-labelledby="projects-heading">
+      <h2 id="projects-heading" data-reveal>Featured Projects</h2>
+      <div id="projects-container" class="projects-container" aria-live="polite">
+        <p class="projects-loading">Loading projects…</p>
+      </div>
+      <noscript>
+        <ol class="projects-noscript">
+          <li>
+            <h3>LLM-Assisted Verification Assistant Using LangChain, LangGraph, and RAG</h3>
+            <ul>
+              <li>Built a RAG pipeline over the 500-page ARM AXI4 specification using LangChain, ChromaDB, and Claude, with regex preprocessing, semantic chunking, and MMR retrieval for grounded spec Q&amp;A.</li>
+              <li>Designed an agentic coverage gap analyzer in LangGraph that parses functional coverage reports and suggests UVM constrained-random stimulus to close uncovered bins.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Verification of AXI4-Lite Slave Interface Using SystemVerilog and UVM</h3>
+            <ul>
+              <li>Authored a Verification Plan covering reset behavior, address alignment, and corner-case transactions.</li>
+              <li>Built a complete UVM environment (driver, monitor, sequencer, scoreboard) with constrained-random stimulus verifying handshake timing and back-to-back transaction stability.</li>
+              <li>Achieved functional coverage closure validating protocol compliance across read and write channels.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Design Verification of APB Protocol Using SystemVerilog and UVM</h3>
+            <ul>
+              <li>Authored a Verification Plan covering reset behavior, PSLVERR responses, address alignment, and back-to-back transfers.</li>
+              <li>Built a UVM environment with scoreboard validating APB protocol compliance under constrained-random stimulus.</li>
+              <li>Achieved 100% Functional Coverage across address and data cross-bins during coverage closure.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Asynchronous FIFO for Robust Clock Domain Crossing (CDC)</h3>
+            <ul>
+              <li>Verified a CDC-safe asynchronous FIFO with independent read/write clock domains and Gray-code pointer synchronization.</li>
+              <li>Implemented SystemVerilog Assertions (SVA) monitoring pointer stability and two-flop synchronizer latency across multiple clock ratios.</li>
+              <li>Stress-tested under asynchronous reset, clock skew, and boundary conditions ensuring CDC robustness.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Functional Verification of SPI Protocol Using SystemVerilog and UVM</h3>
+            <ul>
+              <li>Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.</li>
+              <li>Designed a self-checking scoreboard using a 32×8 reference memory model validating readback data correctness.</li>
+              <li>Verified protocol compliance during reset recovery and corner-case timing scenarios.</li>
+            </ul>
+          </li>
+        </ol>
+      </noscript>
+    </section>
+
+    <section id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading" data-reveal>Experience</h2>
+      <article class="timeline-item" data-reveal>
+        <h3>Course Assistant, VLSI System &amp; Architecture Design</h3>
+        <p class="timeline-meta">New York University, New York, USA — June 2025 – May 2026</p>
+        <ul>
+          <li>Automated a grading pipeline using Python scripts to run student RTL submissions through VCS and generate structured reports.</li>
+          <li>Prepared hands-on lab manuals and assignments for schematic/layout and digital design.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="education" aria-labelledby="education-heading">
+      <h2 id="education-heading" data-reveal>Education</h2>
+      <article class="timeline-item" data-reveal>
+        <h3>MS Computer Engineering</h3>
+        <p class="timeline-meta">New York University, Tandon School of Engineering — Sept 2024 – May 2026 · CGPA 3.87/4.0</p>
+      </article>
+      <article class="timeline-item" data-reveal>
+        <h3>BE Electronics &amp; Communication Engineering</h3>
+        <p class="timeline-meta">College of Engineering Guindy (CEG), Anna University — Sept 2020 – May 2024 · CGPA 8.51/10</p>
+        <p>Coursework: Digital System Design, Digital VLSI, Linear ICs, Operating Systems, Machine Learning, Advanced Microcontrollers.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" data-reveal>Contact</h2>
+    <p data-reveal>I'm always happy to talk chips, verification, or where AI fits into the workflow — reach out any time.</p>
+    <nav class="footer-links" aria-label="Contact links">
+      <a href="mailto:db5309@nyu.edu">Email</a>
+      <a href="https://github.com/Dhirajzen">GitHub</a>
+      <a href="https://linkedin.com/in/dhirajzen30">LinkedIn</a>
+    </nav>
+  </footer>
+</body>
+</html>

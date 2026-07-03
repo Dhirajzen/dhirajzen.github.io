@@ -1,0 +1,66 @@
+[
+  {
+    "id": "llm-verification-assistant",
+    "title": "LLM-Assisted Verification Assistant Using LangChain, LangGraph, and RAG",
+    "summary": "Grounded spec Q&A and agentic coverage gap analysis on top of an ARM AXI4 RAG pipeline.",
+    "bullets": [
+      "Built a RAG pipeline over the 500-page ARM AXI4 specification using LangChain, ChromaDB, and Claude, with regex preprocessing, semantic chunking, and MMR retrieval for grounded spec Q&A.",
+      "Designed an agentic coverage gap analyzer in LangGraph that parses functional coverage reports and suggests UVM constrained-random stimulus to close uncovered bins."
+    ],
+    "tags": ["LangChain", "LangGraph", "RAG", "ChromaDB", "Claude"],
+    "github": "https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER",
+    "order": 1
+  },
+  {
+    "id": "axi4-lite-slave-uvm",
+    "title": "Verification of AXI4-Lite Slave Interface Using SystemVerilog and UVM",
+    "summary": "Full UVM environment with constrained-random stimulus achieving functional coverage closure on AXI4-Lite.",
+    "bullets": [
+      "Authored a Verification Plan covering reset behavior, address alignment, and corner-case transactions.",
+      "Built a complete UVM environment (driver, monitor, sequencer, scoreboard) with constrained-random stimulus verifying handshake timing and back-to-back transaction stability.",
+      "Achieved functional coverage closure validating protocol compliance across read and write channels."
+    ],
+    "tags": ["SystemVerilog", "UVM", "AXI4-Lite", "Functional Coverage"],
+    "github": "https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER",
+    "order": 2
+  },
+  {
+    "id": "apb-protocol-uvm",
+    "title": "Design Verification of APB Protocol Using SystemVerilog and UVM",
+    "summary": "UVM environment with scoreboard reaching 100% functional coverage on APB.",
+    "bullets": [
+      "Authored a Verification Plan covering reset behavior, PSLVERR responses, address alignment, and back-to-back transfers.",
+      "Built a UVM environment with scoreboard validating APB protocol compliance under constrained-random stimulus.",
+      "Achieved 100% Functional Coverage across address and data cross-bins during coverage closure."
+    ],
+    "tags": ["SystemVerilog", "UVM", "APB", "Functional Coverage"],
+    "github": "https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER",
+    "order": 3
+  },
+  {
+    "id": "async-fifo-cdc",
+    "title": "Asynchronous FIFO for Robust Clock Domain Crossing (CDC)",
+    "summary": "SVA-monitored CDC-safe FIFO stress-tested across clock ratios, skew, and async reset.",
+    "bullets": [
+      "Verified a CDC-safe asynchronous FIFO with independent read/write clock domains and Gray-code pointer synchronization.",
+      "Implemented SystemVerilog Assertions (SVA) monitoring pointer stability and two-flop synchronizer latency across multiple clock ratios.",
+      "Stress-tested under asynchronous reset, clock skew, and boundary conditions ensuring CDC robustness."
+    ],
+    "tags": ["SystemVerilog", "SVA", "CDC", "Asynchronous FIFO"],
+    "github": "https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER",
+    "order": 4
+  },
+  {
+    "id": "spi-uvm",
+    "title": "Functional Verification of SPI Protocol Using SystemVerilog and UVM",
+    "summary": "Self-checking SPI scoreboard validating CPOL/CPHA modes against a reference memory model.",
+    "bullets": [
+      "Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.",
+      "Designed a self-checking scoreboard using a 32×8 reference memory model validating readback data correctness.",
+      "Verified protocol compliance during reset recovery and corner-case timing scenarios."
+    ],
+    "tags": ["SystemVerilog", "UVM", "SPI", "Functional Coverage"],
+    "github": "https://github.com/Dhirajzen/REPO-NAME-PLACEHOLDER",
+    "order": 5
+  }
+]
