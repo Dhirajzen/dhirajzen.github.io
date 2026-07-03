@@ -73,6 +73,7 @@ function el(tag, options = {}, children = []) {
   if (options.className) node.className = options.className;
   if (options.text) node.textContent = options.text;
   if (options.href) node.href = options.href;
+  if (options.ariaLabel) node.setAttribute('aria-label', options.ariaLabel);
   children.forEach((child) => node.appendChild(child));
   return node;
 }
@@ -94,7 +95,12 @@ function renderProjectCard(project) {
   );
   card.appendChild(tagList);
 
-  card.appendChild(el('a', { className: 'project-link', href: project.github, text: 'View on GitHub' }));
+  card.appendChild(el('a', {
+    className: 'project-link',
+    href: project.github,
+    text: 'View on GitHub',
+    ariaLabel: `View ${project.title} on GitHub`,
+  }));
 
   return card;
 }
