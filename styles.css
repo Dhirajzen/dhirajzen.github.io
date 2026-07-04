@@ -110,18 +110,107 @@ button:focus-visible {
 }
 .site-nav__resume:hover { background: var(--accent-on-light); }
 
+.site-nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.site-nav__toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-dark);
+  border-radius: 1px;
+}
+
 @media (max-width: 639px) {
-  .site-nav__links { display: none; }
+  .site-nav__toggle { display: inline-flex; }
+  .site-nav__links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--bg-light);
+    border-bottom: 1px solid rgba(29, 29, 31, 0.08);
+    transition: max-height 0.3s ease;
+  }
+  .site-nav__links[data-open="true"] { max-height: 20rem; }
+  .site-nav__links a {
+    padding: 0.75rem clamp(1.5rem, 5vw, 4rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__links { transition: none; }
 }
 
 /* ===== Layout helpers ===== */
 header.hero,
 main > section,
 footer#contact {
+  position: relative;
   padding: var(--section-padding-y) var(--container-padding-x);
   max-width: var(--container-width);
   margin: 0 auto;
   scroll-margin-top: 4.5rem;
+}
+
+header.hero > *:not(.section-bg-wave):not(.projects-bg-waveform),
+main > section > *:not(.section-bg-wave):not(.projects-bg-waveform),
+footer#contact > *:not(.section-bg-wave):not(.projects-bg-waveform) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Decorative background lines =====
+   Each section's SVG is just a <rect> filled with a tiled <pattern>
+   (defined once, shared, see index.html) — this way the motif repeats
+   cleanly no matter how tall a section grows (e.g. the Projects section
+   stacking 5 cards), instead of stretching one fixed viewBox and
+   distorting it. */
+.section-bg-wave,
+.projects-bg-waveform {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.wave-pattern-path {
+  fill: none;
+  stroke: var(--accent-on-light);
+  stroke-width: 2;
+  opacity: 0.08;
+  stroke-dasharray: 12 8;
+  animation: wave-drift 14s linear infinite;
+}
+.waveform-pattern-path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  opacity: 0.16;
+  stroke-dasharray: 12 8;
+  animation: wave-drift 14s linear infinite;
+}
+@keyframes wave-drift {
+  to { stroke-dashoffset: -200; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wave-pattern-path,
+  .waveform-pattern-path {
+    animation: none;
+  }
 }
 
 main > section + section,

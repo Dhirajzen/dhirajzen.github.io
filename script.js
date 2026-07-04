@@ -137,8 +137,33 @@ function initReveal() {
   targets.forEach((target) => io.observe(target));
 }
 
+// ===== Mobile nav: hamburger toggle =====
+function initMobileNav() {
+  const toggle = document.querySelector('.site-nav__toggle');
+  const links = document.getElementById('site-nav-links');
+  if (!toggle || !links) return;
+
+  const setOpen = (open) => {
+    links.dataset.open = String(open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+
+  toggle.addEventListener('click', () => setOpen(links.dataset.open !== 'true'));
+  links.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && links.dataset.open === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+}
+
 // ===== Bootstrap =====
 document.addEventListener('DOMContentLoaded', async () => {
   await loadProjects();
   initReveal();
+  initMobileNav();
 });
