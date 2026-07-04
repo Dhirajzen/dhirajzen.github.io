@@ -29,6 +29,7 @@ html { scroll-behavior: smooth; }
   html { scroll-behavior: auto; }
 }
 body {
+  position: relative;
   margin: 0;
   font-family: var(--font-system);
   background: var(--bg-light);
@@ -131,7 +132,9 @@ button:focus-visible {
 }
 
 @media (max-width: 639px) {
-  .site-nav__toggle { display: inline-flex; }
+  .site-nav__toggle { display: inline-flex; order: 1; }
+  .site-nav__brand { order: 2; }
+  .site-nav__resume { order: 3; }
   .site-nav__links {
     position: absolute;
     top: 100%;
@@ -159,26 +162,34 @@ header.hero,
 main > section,
 footer#contact {
   position: relative;
+  z-index: 1;
   padding: var(--section-padding-y) var(--container-padding-x);
   max-width: var(--container-width);
   margin: 0 auto;
   scroll-margin-top: 4.5rem;
 }
 
-header.hero > *:not(.section-bg-wave):not(.projects-bg-waveform),
-main > section > *:not(.section-bg-wave):not(.projects-bg-waveform),
-footer#contact > *:not(.section-bg-wave):not(.projects-bg-waveform) {
+main > section > *:not(.projects-bg-waveform) {
   position: relative;
   z-index: 1;
 }
 
-/* ===== Decorative background lines =====
-   Each section's SVG is just a <rect> filled with a tiled <pattern>
-   (defined once, shared, see index.html) — this way the motif repeats
-   cleanly no matter how tall a section grows (e.g. the Projects section
-   stacking 5 cards), instead of stretching one fixed viewBox and
-   distorting it. */
-.section-bg-wave,
+/* ===== Decorative background =====
+   A single quiet dot-grid (.site-bg-wave) sits behind the whole page —
+   one absolutely-positioned SVG, sized to the full document via
+   `position: relative` on body + `inset: 0`, so it reads as one flat
+   field rather than restarting at each section boundary. Kept minimal:
+   small static dots, very low contrast, no motion. The dark Projects
+   section paints its own solid background over it and keeps its
+   separate animated waveform motif for contrast. */
+.site-bg-wave {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
 .projects-bg-waveform {
   position: absolute;
   inset: 0;
@@ -187,13 +198,9 @@ footer#contact > *:not(.section-bg-wave):not(.projects-bg-waveform) {
   height: 100%;
   pointer-events: none;
 }
-.wave-pattern-path {
-  fill: none;
-  stroke: var(--accent-on-light);
-  stroke-width: 2;
-  opacity: 0.08;
-  stroke-dasharray: 12 8;
-  animation: wave-drift 14s linear infinite;
+.wave-pattern-dot {
+  fill: var(--accent-on-light);
+  opacity: 0.14;
 }
 .waveform-pattern-path {
   fill: none;
@@ -207,7 +214,6 @@ footer#contact > *:not(.section-bg-wave):not(.projects-bg-waveform) {
   to { stroke-dashoffset: -200; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .wave-pattern-path,
   .waveform-pattern-path {
     animation: none;
   }

@@ -26,13 +26,15 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
 
+  <svg class="site-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
+
   <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
     <defs>
-      <pattern id="wave-pattern" width="400" height="300" patternUnits="userSpaceOnUse">
-        <path class="wave-pattern-path" d="M-50,150 C50,90 150,210 250,150 C350,90 450,210 550,150" />
+      <pattern id="wave-pattern" width="56" height="56" patternUnits="userSpaceOnUse">
+        <circle class="wave-pattern-dot" cx="4" cy="4" r="1.6" />
       </pattern>
       <pattern id="waveform-pattern" width="400" height="300" patternUnits="userSpaceOnUse">
-        <path class="waveform-pattern-path" d="M-50,200 L50,200 L50,100 L150,100 L150,200 L220,200 L220,100 L260,100 L260,200 L360,200 L360,100 L400,100" />
+        <path class="waveform-pattern-path" d="M-50,200 L100,200 L100,100 L300,100 L300,200 L450,200 L450,100 L500,100 L500,200 L700,200 L700,100 L750,100 L750,200 L950,200 L950,100 L1100,100 L1100,200 L1300,200" />
       </pattern>
     </defs>
   </svg>
@@ -55,7 +57,6 @@
   </nav>
 
   <header class="hero" id="hero">
-    <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
     <img src="headshot.jpg" alt="Portrait of Dhirajzen Bagawath Geetha Kumaravel" class="hero-headshot" data-reveal width="144" height="144">
     <p class="status-pill" data-reveal>Open to full-time DV/RTL roles</p>
     <h1 data-reveal>Hi, I'm Dhirajzen — I verify chips, and I build the AI tools that help verify them faster.</h1>
@@ -70,14 +71,12 @@
 
   <main id="main">
     <section id="about" aria-labelledby="about-heading">
-      <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
       <h2 id="about-heading" data-reveal>About</h2>
       <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon School of Engineering (Sept 2024 – May 2026), with a CGPA of 3.87/4.0. My coursework spans Generative AI Based Chip Design, SoC Design, Computing Systems Architecture, and VLSI Systems &amp; Architecture.</p>
       <p data-reveal>I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
     </section>
 
     <section id="skills" aria-labelledby="skills-heading">
-      <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
       <h2 id="skills-heading" data-reveal>Skills</h2>
       <div class="skills-track">
         <div class="skill-panel" data-reveal>
@@ -196,7 +195,6 @@
     </section>
 
     <section id="experience" aria-labelledby="experience-heading">
-      <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
       <h2 id="experience-heading" data-reveal>Experience</h2>
       <article class="timeline-item" data-reveal>
         <h3>Course Assistant, VLSI System &amp; Architecture Design</h3>
@@ -209,7 +207,6 @@
     </section>
 
     <section id="education" aria-labelledby="education-heading">
-      <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
       <h2 id="education-heading" data-reveal>Education</h2>
       <article class="timeline-item" data-reveal>
         <h3>MS Computer Engineering</h3>
@@ -224,7 +221,6 @@
   </main>
 
   <footer id="contact" aria-labelledby="contact-heading">
-    <svg class="section-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#wave-pattern)" /></svg>
     <h2 id="contact-heading" data-reveal>Contact</h2>
     <p data-reveal>I'm always happy to talk chips, verification, or where AI fits into the workflow — reach out any time.</p>
     <nav class="footer-links" aria-label="Contact links">
