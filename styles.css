@@ -179,14 +179,16 @@ main > section > *:not(.projects-bg-waveform) {
   z-index: 1;
 }
 
-/* ===== Decorative background =====
-   A single quiet dot-grid (.site-bg-wave) sits behind the whole page —
-   one absolutely-positioned SVG, sized to the full document via
-   `position: relative` on body + `inset: 0`, so it reads as one flat
-   field rather than restarting at each section boundary. Kept minimal:
-   small static dots, very low contrast, no motion. The dark Projects
-   section paints its own solid background over it and keeps its
-   separate animated waveform motif for contrast. */
+/* ===== Decorative background: infinite circuit board =====
+   A faint, static circuit-trace pattern (.site-bg-wave) tiles behind the
+   whole page — one absolutely-positioned SVG sized to the full document,
+   so it reads as one continuous board rather than resetting per section.
+   A second, brighter copy of the same traces (.site-bg-wave-active) is
+   masked to a soft circle that eases toward the cursor (see script.js) and
+   has its dash animation running continuously — so the "signal" is always
+   flowing, but only visible in the small halo you're exploring with the
+   pointer. The dark Projects section paints its own solid background over
+   both and keeps its separate waveform motif for contrast. */
 .site-bg-wave {
   position: absolute;
   inset: 0;
@@ -203,9 +205,55 @@ main > section > *:not(.projects-bg-waveform) {
   height: 100%;
   pointer-events: none;
 }
-.wave-pattern-dot {
+.circuit-trace {
+  fill: none;
+  stroke: var(--accent-on-light);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  opacity: 0.07;
+}
+.circuit-via {
   fill: var(--accent-on-light);
-  opacity: 0.14;
+  opacity: 0.11;
+}
+/* A brighter, animated copy of the circuit traces, revealed only in a soft
+   radius around the cursor via a mask — signals appear to run through the
+   board only where you're exploring. */
+.site-bg-wave-active {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  -webkit-mask-image: radial-gradient(110px circle at var(--cursor-x, 50%) var(--cursor-y, 50%), black 0%, transparent 100%);
+  mask-image: radial-gradient(110px circle at var(--cursor-x, 50%) var(--cursor-y, 50%), black 0%, transparent 100%);
+}
+.site-bg-wave-active.is-active { opacity: 1; }
+.circuit-trace-active {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 6 11;
+  opacity: 0.6;
+  animation: circuit-flow 2.6s linear infinite;
+}
+.circuit-via-active {
+  fill: var(--accent);
+  opacity: 0.7;
+}
+@keyframes circuit-flow {
+  to { stroke-dashoffset: -170; }
+}
+@media (hover: none), (pointer: coarse) {
+  .site-bg-wave-active { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-bg-wave-active { display: none; }
+  .circuit-trace-active { animation: none; }
 }
 .waveform-pattern-path {
   fill: none;
@@ -231,6 +279,7 @@ footer#contact {
 
 /* ===== Hero ===== */
 header.hero {
+  position: relative;
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -253,6 +302,7 @@ header.hero {
 header.hero h1 {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   max-width: clamp(20ch, 90%, 42ch);
 }
@@ -261,6 +311,9 @@ header.hero h1 {
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.05;
+  background: var(--bg-light);
+  padding: 0.1em 0.35em;
+  border-radius: 12px;
 }
 .hero-tagline {
   font-size: clamp(1.5rem, 2.6vw, 2.25rem);
@@ -268,10 +321,16 @@ header.hero h1 {
   letter-spacing: -0.01em;
   line-height: 1.25;
   color: var(--text-dark-muted);
+  background: var(--bg-light);
+  padding: 0.1em 0.35em;
+  border-radius: 12px;
 }
 .hero-subtitle {
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   color: var(--text-dark-muted);
+  background: var(--bg-light);
+  padding: 0.15em 0.5em;
+  border-radius: 999px;
 }
 .hero-headshot {
   width: 9rem;
@@ -308,10 +367,20 @@ header.hero h1 {
 /* ===== Section headings ===== */
 main > section h2,
 footer#contact h2 {
+  display: inline-block;
   font-size: var(--section-heading-size);
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 2rem;
+  background: var(--bg-light);
+  padding: 0.1em 0;
+  border-radius: 12px;
+}
+/* Projects section has its own solid dark background painted over the
+   circuit pattern already (see .projects-section below) — the light-bg
+   knockout above would hide this heading's light-colored text entirely. */
+.projects-section > h2 {
+  background: none;
 }
 
 /* ===== About ===== */
@@ -329,7 +398,12 @@ footer#contact h2 {
   border-radius: 16px;
   background: rgba(29, 29, 31, 0.05);
 }
-.about-text p { max-width: 65ch; }
+.about-text p {
+  max-width: 65ch;
+  background: var(--bg-light);
+  padding: 0.5em 0;
+  border-radius: 12px;
+}
 .about-text p + p { margin-top: 1.5rem; }
 @media (max-width: 767px) {
   .about-layout {
@@ -355,9 +429,13 @@ footer#contact h2 {
   gap: 2rem;
 }
 .skill-panel h3 {
+  display: inline-block;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  background: var(--bg-light);
+  padding: 0.1em 0;
+  border-radius: 10px;
 }
 .tag-list {
   display: flex;
@@ -368,7 +446,7 @@ footer#contact h2 {
 .tag-chip {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  background: rgba(29, 29, 31, 0.06);
+  background: rgb(232, 232, 234);
   font-size: 0.9375rem;
 }
 .projects-section .tag-chip {
@@ -449,13 +527,27 @@ footer#contact h2 {
 /* ===== Experience / Education ===== */
 .timeline-item + .timeline-item { margin-top: 2.5rem; }
 .timeline-item h3 {
+  display: inline-block;
   font-size: clamp(1.25rem, 2.2vw, 1.75rem);
   font-weight: 600;
+  background: var(--bg-light);
+  padding: 0.1em 0;
+  border-radius: 10px;
 }
 .timeline-meta {
+  display: inline-block;
   color: var(--text-dark-muted);
   margin-top: 0.35rem;
   margin-bottom: 0.75rem;
+  background: var(--bg-light);
+  padding: 0.1em 0;
+  border-radius: 10px;
+}
+.timeline-item > p:not(.timeline-meta) {
+  background: var(--bg-light);
+  padding: 0.5em 0;
+  border-radius: 12px;
+  max-width: 65ch;
 }
 .timeline-item ul {
   display: flex;
@@ -466,6 +558,10 @@ footer#contact h2 {
   position: relative;
   padding-left: 1.25rem;
   max-width: 65ch;
+  background: var(--bg-light);
+  padding-top: 0.15em;
+  padding-bottom: 0.15em;
+  border-radius: 8px;
 }
 .timeline-item ul li::before {
   content: "";
@@ -486,6 +582,9 @@ footer#contact p {
   max-width: 55ch;
   font-size: clamp(1.125rem, 2vw, 1.5rem);
   margin-bottom: 2rem;
+  background: var(--bg-light);
+  padding: 0.5em 0;
+  border-radius: 12px;
 }
 .footer-links {
   display: flex;

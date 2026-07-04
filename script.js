@@ -161,9 +161,63 @@ function initMobileNav() {
   });
 }
 
+// ===== Cursor-reactive background dots =====
+// A brighter copy of the dot-grid is masked to a soft circle that eases
+// toward the pointer, so nearby dots light up with a fluid trailing feel
+// instead of a flat glow washing over the page.
+function initCursorGlow() {
+  const layer = document.querySelector('.site-bg-wave-active');
+  if (!layer) return;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (prefersReducedMotion || isCoarsePointer) return;
+
+  const root = document.documentElement;
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+  let currentX = targetX;
+  let currentY = targetY;
+  let running = false;
+
+  const tick = () => {
+    // Ease the mask position toward the pointer each frame — a fraction of
+    // the remaining distance, so the reveal trails smoothly instead of
+    // snapping straight to the cursor.
+    currentX += (targetX - currentX) * 0.12;
+    currentY += (targetY - currentY) * 0.12;
+    root.style.setProperty('--cursor-x', `${currentX}px`);
+    root.style.setProperty('--cursor-y', `${currentY}px`);
+
+    const closeEnough = Math.abs(targetX - currentX) < 0.5 && Math.abs(targetY - currentY) < 0.5;
+    if (closeEnough) {
+      running = false;
+      return;
+    }
+    requestAnimationFrame(tick);
+  };
+
+  const ensureRunning = () => {
+    if (!running) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  };
+
+  window.addEventListener('pointermove', (event) => {
+    targetX = event.pageX;
+    targetY = event.pageY;
+    layer.classList.add('is-active');
+    ensureRunning();
+  });
+
+  window.addEventListener('pointerleave', () => layer.classList.remove('is-active'));
+  document.addEventListener('mouseleave', () => layer.classList.remove('is-active'));
+}
+
 // ===== Bootstrap =====
 document.addEventListener('DOMContentLoaded', async () => {
   await loadProjects();
   initReveal();
   initMobileNav();
+  initCursorGlow();
 });
