@@ -138,7 +138,18 @@ button:focus-visible {
 
 @media (max-width: 639px) {
   .site-nav__toggle { display: inline-flex; order: 1; }
-  .site-nav__brand { order: 2; }
+  /* justify-content: space-between (from .site-nav) doesn't truly center
+     the brand mark here — the hamburger and Resume button are different
+     widths, so splitting the remaining space evenly shifts the middle
+     item toward whichever side is narrower. Taking it out of flex flow
+     and centering it against the nav bar itself guarantees the true
+     midpoint regardless of how wide either side item is. */
+  .site-nav__brand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
   .site-nav__resume { order: 3; }
   .site-nav__links {
     position: absolute;
