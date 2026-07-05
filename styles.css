@@ -14,7 +14,11 @@
 
   --section-padding-y: clamp(3rem, 6vw, 6rem);
   --section-gap: clamp(1.5rem, 3vw, 3rem);
-  --container-width: 1120px;
+  /* Was a flat 1120px (1280px past 1440px, then frozen forever) — on
+     external/Windows monitors that report their true CSS-pixel width
+     (no Retina-style downscaling like macOS applies), that left a huge
+     static gap on either side. This keeps growing, bounded, instead. */
+  --container-width: clamp(1120px, 1000px + 20vw, 1600px);
   --container-padding-x: clamp(1.5rem, 5vw, 4rem);
 
   --headline-size: clamp(2.25rem, 5.5vw, 4.5rem);
@@ -627,12 +631,6 @@ footer#contact p {
 @media (max-width: 767px) {
   header.hero { min-height: 80vh; }
   .skills-track { grid-template-columns: 1fr; }
-}
-
-@media (min-width: 1440px) {
-  :root {
-    --container-width: 1280px;
-  }
 }
 
 /* ===== Reveal on scroll =====
