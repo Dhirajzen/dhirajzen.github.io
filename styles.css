@@ -392,6 +392,12 @@ footer#contact h2 {
    knockout above would hide this heading's light-colored text entirely. */
 .projects-section > h2 {
   background: none;
+  /* Dark section skips the light-bg knockout pill entirely, so the
+     inline-block shrink-to-fit sizing has no job left here — worse, it
+     breaks the margin:auto centering shared with .projects-container
+     (auto margins don't resolve on inline-level boxes), leaving the
+     heading flush-left while the container centers. Block fixes both. */
+  display: block;
 }
 
 /* ===== About ===== */
@@ -546,7 +552,14 @@ footer#contact h2 {
   border-radius: 10px;
 }
 .timeline-meta {
-  display: inline-block;
+  /* Block (not inline-block) so it always starts its own line — as
+     inline-block, whether it shared a line with the h3 depended on
+     combined text width, so shorter entries looked different from
+     longer ones (e.g. "MS Computer Engineering" vs "BE Electronics &
+     Communication Engineering" in Education). width:fit-content keeps
+     the background pill hugging just the text. */
+  display: block;
+  width: fit-content;
   color: var(--text-dark-muted);
   margin-top: 0.35rem;
   margin-bottom: 0.75rem;
