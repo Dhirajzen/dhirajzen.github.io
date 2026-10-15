@@ -72,6 +72,11 @@
       <pattern id="waveform-pattern" width="400" height="300" patternUnits="userSpaceOnUse">
         <path class="waveform-pattern-path" d="M-50,200 L50,200 L50,100 L150,100 L150,200 L220,200 L220,100 L260,100 L260,200 L360,200 L360,100 L400,100" />
       </pattern>
+      <!-- Icon sprite: referenced with <use href="#icon-…"> wherever a link needs one. -->
+      <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+      <symbol id="icon-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></g></symbol>
     </defs>
   </svg>
 
@@ -88,14 +93,13 @@
       <span class="site-nav__toggle-bar"></span>
     </button>
     <div class="site-nav__links" id="site-nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
+      <a href="#projects">Work</a>
       <a href="#videos">Videos</a>
-      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </div>
     <a href="resume.pdf" class="site-nav__resume">Resume</a>
+    <span class="site-nav__progress" aria-hidden="true"></span>
   </nav>
 
   <header class="hero" id="hero">
@@ -103,144 +107,161 @@
     <p class="status-pill" data-reveal>Open to full-time DV/RTL roles</p>
     <h1 data-reveal><span class="hero-greeting">Hi, I'm Dhirajzen</span><span class="hero-tagline">Verifying digital designs, and building AI tools that make it faster.</span></h1>
     <p class="hero-subtitle" data-reveal>Aspiring ASIC Design Verification Engineer · Brooklyn, NY</p>
-    <nav class="hero-links" aria-label="Primary links" data-reveal>
-      <a href="resume.pdf" class="hero-link hero-link--primary">Resume</a>
-      <a href="https://github.com/Dhirajzen" class="hero-link">GitHub</a>
-      <a href="https://linkedin.com/in/dhirajzen30" class="hero-link">LinkedIn</a>
-      <a href="https://www.youtube.com/@dhirajzen30" class="hero-link">YouTube</a>
-      <a href="mailto:db5309@nyu.edu" class="hero-link">Email</a>
+    <div class="hero-actions" data-reveal>
+      <a href="#projects" class="btn btn--primary">View my work</a>
+      <a href="resume.pdf" class="btn">Resume</a>
+    </div>
+    <nav class="icon-links hero-icon-links" aria-label="Profiles" data-reveal>
+      <a href="https://github.com/Dhirajzen" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg></a>
+      <a href="https://linkedin.com/in/dhirajzen30" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg></a>
+      <a href="https://www.youtube.com/@dhirajzen30" aria-label="YouTube" title="YouTube"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-youtube"/></svg></a>
+      <a href="mailto:db5309@nyu.edu" aria-label="Email" title="Email"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mail"/></svg></a>
     </nav>
+    <ul class="glance" aria-label="At a glance" data-reveal>
+      <li><span class="glance__value">3</span><span class="glance__label">RTL bugs found</span></li>
+      <li><span class="glance__value">100%</span><span class="glance__label">functional coverage</span></li>
+      <li><span class="glance__value">3</span><span class="glance__label">explainer videos</span></li>
+      <li><span class="glance__value">MS</span><span class="glance__label">NYU Tandon ’26</span></li>
+    </ul>
   </header>
 
   <main id="main">
-    <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading" data-reveal>About</h2>
-      <div class="about-layout">
-        <img src="graduation.jpg" alt="Dhirajzen at his NYU graduation" class="about-photo" data-reveal width="320" height="400"
-             onerror="this.closest('.about-layout').classList.add('about-layout--no-photo'); this.remove();">
-        <div class="about-text">
-          <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon School of Engineering (Sept 2024 – May 2026), with a CGPA of 3.87/4.0. My coursework spans Generative AI Based Chip Design, SoC Design, Computing Systems Architecture, and VLSI Systems &amp; Architecture.</p>
-          <p data-reveal>I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
-          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to how chips survive a flipped bit.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" aria-labelledby="skills-heading">
-      <h2 id="skills-heading" data-reveal>Skills</h2>
-      <div class="skills-track">
-        <div class="skill-panel" data-reveal>
-          <h3>Languages</h3>
-          <ul class="tag-list">
-            <li>SystemVerilog</li>
-            <li>Verilog</li>
-            <li>Python</li>
-            <li>Tcl</li>
-          </ul>
-        </div>
-        <div class="skill-panel" data-reveal>
-          <h3>Verification</h3>
-          <ul class="tag-list">
-            <li>UVM</li>
-            <li>Constrained-Random Verification</li>
-            <li>SystemVerilog Assertions (SVA)</li>
-            <li>Assertion-Based Verification</li>
-            <li>Functional &amp; Code Coverage</li>
-            <li>Coverage Closure</li>
-            <li>Scoreboarding</li>
-            <li>Reference Modeling</li>
-          </ul>
-        </div>
-        <div class="skill-panel" data-reveal>
-          <h3>Protocols</h3>
-          <ul class="tag-list">
-            <li>AXI4</li>
-            <li>AXI4-Lite</li>
-            <li>APB</li>
-            <li>SPI</li>
-            <li>I2C</li>
-          </ul>
-        </div>
-        <div class="skill-panel" data-reveal>
-          <h3>Tools</h3>
-          <ul class="tag-list">
-            <li>Cadence Xcelium</li>
-            <li>SimVision</li>
-            <li>IMC</li>
-            <li>Synopsys VCS</li>
-            <li>Design Compiler</li>
-            <li>Genus</li>
-            <li>Innovus</li>
-            <li>Virtuoso</li>
-            <li>OpenLane</li>
-            <li>Xilinx Vivado</li>
-            <li>Linux</li>
-            <li>Git</li>
-            <li>Make</li>
-          </ul>
-        </div>
-        <div class="skill-panel" data-reveal>
-          <h3>AI/ML for Verification</h3>
-          <ul class="tag-list">
-            <li>LangChain</li>
-            <li>LangGraph</li>
-            <li>RAG</li>
-            <li>ChromaDB</li>
-            <li>Prompt Engineering</li>
-            <li>Anthropic API</li>
-          </ul>
-        </div>
-        <div class="skill-panel" data-reveal>
-          <h3>Hardware Concepts</h3>
-          <ul class="tag-list">
-            <li>RTL Design</li>
-            <li>Microarchitecture</li>
-            <li>Clock Domain Crossing (CDC)</li>
-            <li>Static Timing Analysis (STA)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <section id="projects" class="projects-section" aria-labelledby="projects-heading">
       <svg class="projects-bg-waveform" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#waveform-pattern)" /></svg>
-      <h2 id="projects-heading" data-reveal>Featured Projects</h2>
-      <div id="projects-container" class="projects-container" aria-live="polite">
-        <p class="projects-loading">Loading projects…</p>
+      <h2 id="projects-heading" data-reveal>Selected work</h2>
+      <div class="projects-container">
+        <article class="project-feature" data-reveal>
+          <figure class="project-feature__visual">
+            <svg class="diagram" viewBox="0 0 440 300" role="img" aria-labelledby="axi-diagram-title">
+              <title id="axi-diagram-title">UVM testbench: a sequencer and driver stimulate the AXI4 slave, a monitor feeds a reference-model scoreboard and coverage, and 14 assertions sit on the interface</title>
+              <defs>
+                <marker id="dg-arrow-home" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0 0 10 5 0 10z"/></marker>
+              </defs>
+              <rect class="dg-group" x="8" y="8" width="290" height="284" rx="14"/>
+              <text class="dg-label" x="22" y="29">axi_env</text>
+              <rect class="dg-group dg-group--inner" x="20" y="40" width="266" height="128" rx="10"/>
+              <text class="dg-label" x="32" y="59">axi_agent</text>
+              <rect class="dg-box" x="32" y="70" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="85" y="92">sequencer</text>
+              <rect class="dg-box" x="168" y="70" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="221" y="92">driver</text>
+              <rect class="dg-box" x="168" y="120" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="221" y="142">monitor</text>
+              <path class="dg-wire" d="M138 87 H164" marker-end="url(#dg-arrow-home)"/>
+              <rect class="dg-box dg-box--dut" x="330" y="60" width="102" height="110" rx="12"/>
+              <text class="dg-text dg-text--strong" x="381" y="110">DUT</text>
+              <text class="dg-sub" x="381" y="128">axi_slave</text>
+              <path class="dg-wire" d="M274 87 H326" marker-end="url(#dg-arrow-home)"/>
+              <path class="dg-wire" d="M330 137 H278" marker-end="url(#dg-arrow-home)"/>
+              <rect class="dg-badge" x="330" y="182" width="102" height="26" rx="13"/>
+              <text class="dg-badge-text" x="381" y="199">axi_if · 14 SVA</text>
+              <path class="dg-wire" d="M221 154 V184 H86 V208" marker-end="url(#dg-arrow-home)"/>
+              <path class="dg-wire" d="M221 184 V208" marker-end="url(#dg-arrow-home)"/>
+              <rect class="dg-box" x="24" y="212" width="124" height="52" rx="7"/>
+              <text class="dg-text" x="86" y="234">scoreboard</text>
+              <text class="dg-sub" x="86" y="251">ref model · per-beat</text>
+              <rect class="dg-box" x="164" y="212" width="114" height="52" rx="7"/>
+              <text class="dg-text" x="221" y="234">coverage</text>
+              <text class="dg-sub" x="221" y="251">covergroups + cross</text>
+              <text class="dg-callout" x="381" y="246">3 RTL bugs found</text>
+              <text class="dg-sub" x="381" y="264">8 tests · Xcelium</text>
+            </svg>
+          </figure>
+          <div class="project-feature__body">
+            <p class="project-kicker">Featured · Design verification</p>
+            <h3>Burst-capable AXI4 slave, verified in UVM</h3>
+            <p class="project-summary">A UVM testbench strict enough to catch three real RTL bugs, each reproducible with its own failing test.</p>
+            <ul class="project-stats" aria-label="Key results">
+              <li><span class="project-stat__value">3</span><span class="project-stat__label">RTL bugs found</span></li>
+              <li><span class="project-stat__value">14</span><span class="project-stat__label">SystemVerilog assertions</span></li>
+              <li><span class="project-stat__value">100%</span><span class="project-stat__label">functional coverage</span></li>
+              <li><span class="project-stat__value">8</span><span class="project-stat__label">tests on Xcelium</span></li>
+            </ul>
+            <ul class="tag-list">
+              <li class="tag-chip">SystemVerilog</li>
+              <li class="tag-chip">UVM</li>
+              <li class="tag-chip">AXI4</li>
+              <li class="tag-chip">SVA</li>
+              <li class="tag-chip">Cadence Xcelium</li>
+            </ul>
+            <div class="project-links">
+              <a class="project-cta" href="projects/axi4-uvm.html">Read the bug hunt <span aria-hidden="true">→</span></a>
+              <a class="project-link" href="https://github.com/Dhirajzen/AXI4-UVM-Verification" aria-label="View the AXI4 slave verification project on GitHub">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <div class="project-grid">
+          <article class="project-card" data-reveal>
+            <p class="project-kicker">Clock domain crossing</p>
+            <h3>Dual-clock async FIFO, proven with SVA</h3>
+            <p class="project-summary">A parameterized async FIFO checked by a bind-attached assertion suite across five write/read clock ratios.</p>
+            <ul class="project-stats project-stats--compact" aria-label="Key results">
+              <li><span class="project-stat__value">14</span><span class="project-stat__label">assertions</span></li>
+              <li><span class="project-stat__value">8</span><span class="project-stat__label">cover properties</span></li>
+              <li><span class="project-stat__value">5</span><span class="project-stat__label">clock ratios</span></li>
+            </ul>
+            <ul class="tag-list">
+              <li class="tag-chip">SystemVerilog</li>
+              <li class="tag-chip">SVA</li>
+              <li class="tag-chip">CDC</li>
+              <li class="tag-chip">Cadence Xcelium</li>
+            </ul>
+            <div class="project-links">
+              <a class="project-cta" href="projects/async-fifo.html">Read the story <span aria-hidden="true">→</span></a>
+              <span class="project-links__more">
+                <a class="project-link project-link--video" href="https://www.youtube.com/watch?v=NLQoDZw3vug" aria-label="Watch the YouTube explainer on async FIFOs">Explainer</a>
+                <a class="project-link" href="https://github.com/Dhirajzen/Asynchronous-FIFO" aria-label="View the async FIFO project on GitHub">GitHub</a>
+              </span>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <p class="project-kicker">AI for verification</p>
+            <h3>LLM assistant for spec Q&amp;A and coverage gaps</h3>
+            <p class="project-summary">Grounded answers from the 500-page ARM AXI4 spec, plus an agent that turns coverage holes into UVM stimulus ideas.</p>
+            <ul class="tag-list">
+              <li class="tag-chip">LangChain</li>
+              <li class="tag-chip">LangGraph</li>
+              <li class="tag-chip">RAG</li>
+              <li class="tag-chip">ChromaDB</li>
+              <li class="tag-chip">Claude</li>
+            </ul>
+            <details class="project-details">
+              <summary>What I built</summary>
+              <ul class="project-bullets">
+                <li>Built a RAG pipeline over the 500-page ARM AXI4 specification using LangChain, ChromaDB, and Claude, with regex preprocessing, semantic chunking, and MMR retrieval for grounded spec Q&amp;A.</li>
+                <li>Designed an agentic coverage gap analyzer in LangGraph that parses functional coverage reports and suggests UVM constrained-random stimulus to close uncovered bins.</li>
+              </ul>
+            </details>
+            <div class="project-links">
+              <a class="project-link" href="https://github.com/Dhirajzen/dv-rag-assistant" aria-label="View the LLM verification assistant on GitHub">View on GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card" data-reveal>
+            <p class="project-kicker">Protocol verification</p>
+            <h3>SPI controller UVM environment</h3>
+            <p class="project-summary">Self-checking SPI scoreboard validating CPOL/CPHA modes against a reference memory model.</p>
+            <ul class="tag-list">
+              <li class="tag-chip">SystemVerilog</li>
+              <li class="tag-chip">UVM</li>
+              <li class="tag-chip">SPI</li>
+              <li class="tag-chip">Functional Coverage</li>
+            </ul>
+            <details class="project-details">
+              <summary>What I built</summary>
+              <ul class="project-bullets">
+                <li>Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.</li>
+                <li>Designed a self-checking scoreboard using a 32×8 reference memory model validating readback correctness through reset recovery and corner-case timing scenarios.</li>
+              </ul>
+            </details>
+            <div class="project-links">
+              <a class="project-link" href="https://github.com/Dhirajzen/Design-Verification-Projects/tree/main/SPI_UVM_Verification" aria-label="View the SPI UVM project on GitHub">View on GitHub</a>
+            </div>
+          </article>
+        </div>
       </div>
-      <noscript>
-        <ol class="projects-noscript">
-          <li>
-            <h3>Verification of a Burst-Capable AXI4 Slave Using SystemVerilog and UVM</h3>
-            <ul>
-              <li>Built a UVM environment (driver, monitor, reference-model scoreboard, functional coverage) verifying AXI4 FIXED/INCR/WRAP bursts, byte-lane strobes, and error responses across 8 tests on Cadence Xcelium.</li>
-              <li>Wrote 14 SystemVerilog Assertions for channel handshake, payload stability, and reset protocol compliance; achieved 100% functional coverage via constrained-random and directed error-injection stimulus.</li>
-              <li>Found and root-caused 3 RTL bugs — a response-flag race condition, a write-FSM deadlock on early WLAST, and an error-path memory-corruption bug — using a strict per-beat scoreboard and directed error injection.</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Assertion-Based Verification of a Dual-Clock Asynchronous FIFO for CDC</h3>
-            <ul>
-              <li>Designed and verified a parameterized dual-clock asynchronous FIFO (Gray-code pointers, 2-flop CDC synchronizers, MSB-invert full/empty logic) with a self-checking SystemVerilog testbench and a 14-assertion / 8-cover-property SVA suite regressed across 5 clock-ratio scenarios on Cadence Xcelium.</li>
-              <li>Root-caused a same-edge race condition between the write- and read-clock-domain stimulus shutdown paths that could silently drop an in-flight write during drain; fixed it by decoupling the write/read enables for a guaranteed lossless drain.</li>
-            </ul>
-          </li>
-          <li>
-            <h3>LLM-Assisted Verification Assistant Using LangChain, LangGraph, and RAG</h3>
-            <ul>
-              <li>Built a RAG pipeline over the 500-page ARM AXI4 specification using LangChain, ChromaDB, and Claude, with regex preprocessing, semantic chunking, and MMR retrieval for grounded spec Q&amp;A.</li>
-              <li>Designed an agentic coverage gap analyzer in LangGraph that parses functional coverage reports and suggests UVM constrained-random stimulus to close uncovered bins.</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Functional Verification of SPI Protocol Using SystemVerilog and UVM</h3>
-            <ul>
-              <li>Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.</li>
-              <li>Designed a self-checking scoreboard using a 32×8 reference memory model validating readback correctness through reset recovery and corner-case timing scenarios.</li>
-            </ul>
-          </li>
-        </ol>
-      </noscript>
     </section>
 
     <section id="videos" aria-labelledby="videos-heading">
@@ -281,44 +302,138 @@
           </div>
         </article>
       </div>
-      <a class="videos-cta" href="https://www.youtube.com/@dhirajzen30" data-reveal>Subscribe on YouTube</a>
+      <a class="btn btn--primary videos-cta" href="https://www.youtube.com/@dhirajzen30" data-reveal>Subscribe on YouTube</a>
     </section>
 
-    <section id="experience" aria-labelledby="experience-heading">
-      <h2 id="experience-heading" data-reveal>Experience</h2>
-      <article class="timeline-item" data-reveal>
-        <h3>Course Assistant, VLSI System &amp; Architecture Design</h3>
-        <p class="timeline-meta">New York University, New York, USA — June 2025 – May 2026</p>
-        <ul>
-          <li>Automated a Python grading pipeline that batch-compiles and simulates student RTL submissions in Synopsys VCS and generates structured pass/fail reports.</li>
-          <li>Prepared hands-on lab manuals and assignments for schematic/layout and digital design; debugged student RTL and testbench issues during lab hours.</li>
-        </ul>
-      </article>
-    </section>
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading" data-reveal>About</h2>
+      <div class="about-layout">
+        <img src="graduation.jpg" alt="Dhirajzen at his NYU graduation" class="about-photo" data-reveal width="320" height="400"
+             onerror="this.closest('.about-layout').classList.add('about-layout--no-photo'); this.remove();">
+        <div class="about-text">
+          <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon. I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
+          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to how chips survive a flipped bit.</p>
+        </div>
+      </div>
 
-    <section id="education" aria-labelledby="education-heading">
-      <h2 id="education-heading" data-reveal>Education</h2>
-      <article class="timeline-item" data-reveal>
-        <h3>MS Computer Engineering</h3>
-        <p class="timeline-meta">New York University, Tandon School of Engineering — Sept 2024 – May 2026 · CGPA 3.87/4.0</p>
-      </article>
-      <article class="timeline-item" data-reveal>
-        <h3>BE Electronics &amp; Communication Engineering</h3>
-        <p class="timeline-meta">College of Engineering Guindy (CEG), Anna University — Sept 2020 – May 2024 · CGPA 8.51/10</p>
-        <p>Coursework: Digital System Design, Digital VLSI, Linear ICs, Operating Systems, Machine Learning, Advanced Microcontrollers.</p>
-      </article>
+      <div class="capabilities" id="skills">
+        <h3 class="subheading" data-reveal>What I do</h3>
+        <div class="capability-grid">
+          <article class="capability-card" data-reveal>
+            <svg class="capability-card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4M6.5 10v2.5H12V14M17.5 10v2.5H12"/></g></svg>
+            <h4>Build verification environments</h4>
+            <p>UVM testbenches with constrained-random stimulus, self-checking scoreboards and reference models, driven to coverage closure.</p>
+            <ul class="tag-list">
+              <li>UVM</li>
+              <li>SystemVerilog</li>
+              <li>Verilog</li>
+              <li>Constrained-Random Verification</li>
+              <li>Scoreboarding</li>
+              <li>Reference Modeling</li>
+              <li>Functional &amp; Code Coverage</li>
+              <li>Coverage Closure</li>
+            </ul>
+          </article>
+          <article class="capability-card" data-reveal>
+            <svg class="capability-card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 4.7 3.4 8.6 8 10 4.6-1.4 8-5.3 8-10v-6l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></g></svg>
+            <h4>Prove it with assertions</h4>
+            <p>Protocol rules, clock domain crossings and corner cases, pinned down with SVA so a bug can't slip through quietly.</p>
+            <ul class="tag-list">
+              <li>SystemVerilog Assertions (SVA)</li>
+              <li>Assertion-Based Verification</li>
+              <li>Clock Domain Crossing (CDC)</li>
+              <li>AXI4</li>
+              <li>AXI4-Lite</li>
+              <li>APB</li>
+              <li>SPI</li>
+              <li>I2C</li>
+            </ul>
+          </article>
+          <article class="capability-card" data-reveal>
+            <svg class="capability-card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></g></svg>
+            <h4>Automate the toil</h4>
+            <p>Scripts and LLM tooling that take over the repetitive parts: regressions, grading pipelines, spec lookup and coverage analysis.</p>
+            <ul class="tag-list">
+              <li>Python</li>
+              <li>Tcl</li>
+              <li>Make</li>
+              <li>Linux</li>
+              <li>Git</li>
+              <li>LangChain</li>
+              <li>LangGraph</li>
+              <li>RAG</li>
+              <li>ChromaDB</li>
+              <li>Prompt Engineering</li>
+              <li>Anthropic API</li>
+            </ul>
+          </article>
+          <article class="capability-card" data-reveal>
+            <svg class="capability-card__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="13" rx="2.5"/><path d="m10 8.5 4.5 2.5-4.5 2.5v-5ZM8 21h8"/></g></svg>
+            <h4>Explain it clearly</h4>
+            <p>Turning tricky hardware concepts into explanations people remember, on YouTube and in the lab as a course assistant.</p>
+            <ul class="tag-list">
+              <li>YouTube Explainers</li>
+              <li>Lab Manuals</li>
+              <li>RTL &amp; Testbench Debugging</li>
+            </ul>
+          </article>
+        </div>
+        <dl class="toolbox" data-reveal>
+          <div>
+            <dt>Toolbox</dt>
+            <dd>Cadence Xcelium · SimVision · IMC · Synopsys VCS · Design Compiler · Genus · Innovus · Virtuoso · OpenLane · Xilinx Vivado</dd>
+          </div>
+          <div>
+            <dt>Hardware concepts</dt>
+            <dd>RTL Design · Microarchitecture · Clock Domain Crossing (CDC) · Static Timing Analysis (STA)</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="journey" id="experience">
+        <h3 class="subheading" data-reveal>Journey</h3>
+        <ol class="journey-rail">
+          <li class="journey-step" id="education" data-reveal>
+            <p class="journey-step__when">2020 – 2024</p>
+            <h4>BE, Electronics &amp; Communication Engineering</h4>
+            <p class="journey-step__where">College of Engineering Guindy, Anna University · CGPA 8.51/10</p>
+            <p class="journey-step__note">Digital System Design, Digital VLSI, Linear ICs, Operating Systems, Machine Learning, Advanced Microcontrollers.</p>
+          </li>
+          <li class="journey-step" data-reveal>
+            <p class="journey-step__when">2024 – 2026</p>
+            <h4>MS, Computer Engineering</h4>
+            <p class="journey-step__where">NYU Tandon School of Engineering · CGPA 3.87/4.0</p>
+            <p class="journey-step__note">Generative AI Based Chip Design, SoC Design, Computing Systems Architecture, VLSI Systems &amp; Architecture.</p>
+          </li>
+          <li class="journey-step" data-reveal>
+            <p class="journey-step__when">Jun 2025 – May 2026</p>
+            <h4>Course Assistant, VLSI System &amp; Architecture Design</h4>
+            <p class="journey-step__where">New York University</p>
+            <p class="journey-step__note">Automated a Python grading pipeline that batch-compiles and simulates student RTL in Synopsys VCS; wrote lab manuals and debugged student RTL and testbenches during lab hours.</p>
+          </li>
+          <li class="journey-step journey-step--now" data-reveal>
+            <p class="journey-step__when">Now</p>
+            <h4>Open to full-time DV/RTL roles</h4>
+            <p class="journey-step__note">Looking for ASIC design verification and RTL roles. <a href="#contact">Get in touch</a>.</p>
+          </li>
+        </ol>
+      </div>
     </section>
   </main>
 
   <footer id="contact" aria-labelledby="contact-heading">
-    <h2 id="contact-heading" data-reveal>Contact</h2>
+    <h2 id="contact-heading" data-reveal>Let’s talk</h2>
     <p data-reveal>I'm always happy to talk chips, verification, or where AI fits into the workflow — reach out any time.</p>
-    <nav class="footer-links" aria-label="Contact links">
-      <a href="mailto:db5309@nyu.edu">Email</a>
-      <a href="https://github.com/Dhirajzen">GitHub</a>
-      <a href="https://linkedin.com/in/dhirajzen30">LinkedIn</a>
-      <a href="https://www.youtube.com/@dhirajzen30">YouTube</a>
-    </nav>
+    <div class="contact-actions" data-reveal>
+      <a href="mailto:db5309@nyu.edu" class="btn btn--primary">Email me</a>
+      <button type="button" class="btn copy-email" data-email="db5309@nyu.edu" hidden>Copy email</button>
+      <nav class="icon-links" aria-label="Profiles">
+        <a href="https://github.com/Dhirajzen" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg></a>
+        <a href="https://linkedin.com/in/dhirajzen30" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg></a>
+        <a href="https://www.youtube.com/@dhirajzen30" aria-label="YouTube" title="YouTube"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-youtube"/></svg></a>
+      </nav>
+    </div>
+    <p class="footer-meta"><span>db5309@nyu.edu</span> · <a href="#hero">Back to top ↑</a></p>
   </footer>
 </body>
 </html>

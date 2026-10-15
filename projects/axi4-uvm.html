@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AXI4 bug hunt: how a strict scoreboard caught 3 RTL bugs — Dhirajzen</title>
+  <meta name="description" content="Case study: verifying a burst-capable AXI4 slave in SystemVerilog and UVM, with 14 assertions, 100% functional coverage, and three real RTL bugs found and reproduced.">
+  <link rel="canonical" href="https://dhirajzen.github.io/projects/axi4-uvm.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://dhirajzen.github.io/projects/axi4-uvm.html">
+  <meta property="og:title" content="AXI4 bug hunt: how a strict scoreboard caught 3 RTL bugs — Dhirajzen">
+  <meta property="og:description" content="Case study: verifying a burst-capable AXI4 slave in SystemVerilog and UVM, with 14 assertions, 100% functional coverage, and three real RTL bugs found and reproduced.">
+  <meta property="og:image" content="https://dhirajzen.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AXI4 bug hunt: how a strict scoreboard caught 3 RTL bugs — Dhirajzen">
+  <meta name="twitter:description" content="Case study: verifying a burst-capable AXI4 slave in SystemVerilog and UVM, with 14 assertions, 100% functional coverage, and three real RTL bugs found and reproduced.">
+  <meta name="twitter:image" content="https://dhirajzen.github.io/og-image.png">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <script data-goatcounter="https://dhirajzen.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <svg class="site-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#circuit-pattern)" /></svg>
+  <svg class="site-bg-wave-active" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#circuit-pattern-active)" /></svg>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="circuit-pattern" width="120" height="120" patternUnits="userSpaceOnUse">
+        <path class="circuit-trace" d="M0,26 H38 V64 H90 V120 M64,0 V46 H120 M0,96 H20 V70" />
+        <circle class="circuit-via" cx="38" cy="26" r="2.5" />
+        <circle class="circuit-via" cx="38" cy="64" r="2.5" />
+        <circle class="circuit-via" cx="90" cy="64" r="2.5" />
+        <circle class="circuit-via" cx="64" cy="46" r="2.5" />
+        <circle class="circuit-via" cx="20" cy="96" r="2.5" />
+      </pattern>
+      <pattern id="circuit-pattern-active" width="120" height="120" patternUnits="userSpaceOnUse">
+        <path class="circuit-trace-active" d="M0,26 H38 V64 H90 V120 M64,0 V46 H120 M0,96 H20 V70" />
+        <circle class="circuit-via-active" cx="38" cy="26" r="3" />
+        <circle class="circuit-via-active" cx="38" cy="64" r="3" />
+        <circle class="circuit-via-active" cx="90" cy="64" r="3" />
+        <circle class="circuit-via-active" cx="64" cy="46" r="3" />
+        <circle class="circuit-via-active" cx="20" cy="96" r="3" />
+      </pattern>
+      <pattern id="waveform-pattern" width="400" height="300" patternUnits="userSpaceOnUse">
+        <path class="waveform-pattern-path" d="M-50,200 L50,200 L50,100 L150,100 L150,200 L220,200 L220,100 L260,100 L260,200 L360,200 L360,100 L400,100" />
+      </pattern>
+      <!-- Icon sprite: referenced with <use href="#icon-…"> wherever a link needs one. -->
+      <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+      <symbol id="icon-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></g></symbol>
+    </defs>
+  </svg>
+
+  <nav class="site-nav" aria-label="Section navigation">
+    <a href="../" class="site-nav__brand" aria-label="Dhirajzen — home">
+      <svg class="site-nav__brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="var(--text-dark)"/>
+        <text x="32" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="var(--accent)" text-anchor="middle">DZ</text>
+      </svg>
+    </a>
+    <button type="button" class="site-nav__toggle" aria-expanded="false" aria-controls="site-nav-links" aria-label="Open menu">
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+    </button>
+    <div class="site-nav__links" id="site-nav-links">
+      <a href="../#projects">Work</a>
+      <a href="../#videos">Videos</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="../resume.pdf" class="site-nav__resume">Resume</a>
+    <span class="site-nav__progress" aria-hidden="true"></span>
+  </nav>
+
+  <main id="main">
+    <article class="case">
+      <header class="case-hero">
+        <a class="case-back" href="../#projects"><span aria-hidden="true">←</span> All work</a>
+        <p class="project-kicker">Case study · Design verification</p>
+        <h1>How a strict scoreboard caught 3 real RTL bugs</h1>
+        <p class="case-lede">Verification of a burst-capable AXI4 slave using SystemVerilog and UVM. The testbench predicts every beat exactly, so when the RTL got something wrong, it had nowhere to hide.</p>
+        <ul class="glance" aria-label="Key results">
+          <li><span class="glance__value">3</span><span class="glance__label">RTL bugs found</span></li>
+          <li><span class="glance__value">14</span><span class="glance__label">SystemVerilog assertions</span></li>
+          <li><span class="glance__value">100%</span><span class="glance__label">functional coverage</span></li>
+          <li><span class="glance__value">8</span><span class="glance__label">tests on Cadence Xcelium</span></li>
+        </ul>
+        <ul class="tag-list">
+          <li>SystemVerilog</li>
+          <li>UVM</li>
+          <li>AXI4</li>
+          <li>SVA</li>
+          <li>Cadence Xcelium</li>
+        </ul>
+        <div class="case-actions">
+          <a class="btn btn--primary" href="https://github.com/Dhirajzen/AXI4-UVM-Verification"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg> View the code on GitHub</a>
+        </div>
+      </header>
+
+      <section class="case-section" aria-labelledby="dut-heading">
+        <h2 id="dut-heading">The design under test</h2>
+        <p>An AXI4 slave in front of a 128-byte, byte-addressable memory. It accepts FIXED, INCR and WRAP bursts of 1–16 beats, with 1-, 2- or 4-byte beats and per-byte write strobes, handles one outstanding transaction per direction, and checks AXI3-style <code>WID</code> against <code>AWID</code>. Anything illegal (an out-of-range address, an illegal size, a reserved burst type) must come back as <code>DECERR</code>.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="tb-heading">
+        <h2 id="tb-heading">The testbench</h2>
+        <figure class="case-figure" data-reveal>
+            <svg class="diagram" viewBox="0 0 440 300" role="img" aria-labelledby="axi-case-diagram-title">
+              <title id="axi-case-diagram-title">UVM testbench: a sequencer and driver stimulate the AXI4 slave, a monitor feeds a reference-model scoreboard and coverage, and 14 assertions sit on the interface</title>
+              <defs>
+                <marker id="dg-arrow-case" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0 0 10 5 0 10z"/></marker>
+              </defs>
+              <rect class="dg-group" x="8" y="8" width="290" height="284" rx="14"/>
+              <text class="dg-label" x="22" y="29">axi_env</text>
+              <rect class="dg-group dg-group--inner" x="20" y="40" width="266" height="128" rx="10"/>
+              <text class="dg-label" x="32" y="59">axi_agent</text>
+              <rect class="dg-box" x="32" y="70" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="85" y="92">sequencer</text>
+              <rect class="dg-box" x="168" y="70" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="221" y="92">driver</text>
+              <rect class="dg-box" x="168" y="120" width="106" height="34" rx="7"/>
+              <text class="dg-text" x="221" y="142">monitor</text>
+              <path class="dg-wire" d="M138 87 H164" marker-end="url(#dg-arrow-case)"/>
+              <rect class="dg-box dg-box--dut" x="330" y="60" width="102" height="110" rx="12"/>
+              <text class="dg-text dg-text--strong" x="381" y="110">DUT</text>
+              <text class="dg-sub" x="381" y="128">axi_slave</text>
+              <path class="dg-wire" d="M274 87 H326" marker-end="url(#dg-arrow-case)"/>
+              <path class="dg-wire" d="M330 137 H278" marker-end="url(#dg-arrow-case)"/>
+              <rect class="dg-badge" x="330" y="182" width="102" height="26" rx="13"/>
+              <text class="dg-badge-text" x="381" y="199">axi_if · 14 SVA</text>
+              <path class="dg-wire" d="M221 154 V184 H86 V208" marker-end="url(#dg-arrow-case)"/>
+              <path class="dg-wire" d="M221 184 V208" marker-end="url(#dg-arrow-case)"/>
+              <rect class="dg-box" x="24" y="212" width="124" height="52" rx="7"/>
+              <text class="dg-text" x="86" y="234">scoreboard</text>
+              <text class="dg-sub" x="86" y="251">ref model · per-beat</text>
+              <rect class="dg-box" x="164" y="212" width="114" height="52" rx="7"/>
+              <text class="dg-text" x="221" y="234">coverage</text>
+              <text class="dg-sub" x="221" y="251">covergroups + cross</text>
+              <text class="dg-callout" x="381" y="246">3 RTL bugs found</text>
+              <text class="dg-sub" x="381" y="264">8 tests · Xcelium</text>
+            </svg>
+          <figcaption>Stimulus flows from the sequencer through the driver into the DUT; a passive monitor rebuilds every burst and feeds the scoreboard and coverage.</figcaption>
+        </figure>
+        <div class="table-wrap">
+          <table class="case-table">
+            <thead><tr><th scope="col">Component</th><th scope="col">Role</th></tr></thead>
+            <tbody>
+              <tr><td>Driver</td><td>Master BFM: clocking-block handshakes, random <code>BREADY</code>/<code>RREADY</code> backpressure, reset abort</td></tr>
+              <tr><td>Monitor</td><td>Passively rebuilds every burst from bus handshakes, so checking never trusts the driver</td></tr>
+              <tr><td>Reference model + scoreboard</td><td>Golden byte-accurate memory; checks <code>RDATA</code>, <code>RRESP</code>, <code>RID</code>, <code>RLAST</code>, <code>BRESP</code> and <code>BID</code> on every beat</td></tr>
+              <tr><td>Coverage</td><td>Burst type × size × length cross, alignment, strobe shape, responses</td></tr>
+              <tr><td>Interface assertions</td><td>14 SVA properties: handshake rules, payload stability, reset behavior, no X</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="strategy-heading">
+        <h2 id="strategy-heading">Strategy: predict every beat, exactly</h2>
+        <ul class="case-list">
+          <li><strong>No “either answer is fine” checks.</strong> The scoreboard's golden memory predicts the exact response and data for every beat. Loose checking is precisely what had masked the first bug.</li>
+          <li><strong>Random for the legal space, directed for the corners.</strong> Constrained-random bursts cover every type, size and length. Directed sequences inject what the constraints deliberately exclude: out-of-range addresses, illegal sizes, reserved burst types, bursts that run off the end of memory, a mismatched <code>WID</code> and an early <code>WLAST</code>.</li>
+          <li><strong>Assertions for what transactions can't show.</strong> The 14 interface assertions cover handshake rules, payload stability while stalled, VALID retraction, reset behavior and X-propagation.</li>
+          <li><strong>A silent pass is not a pass.</strong> A test that observes zero transactions fails by design.</li>
+        </ul>
+      </section>
+
+      <section class="case-section" aria-labelledby="bugs-heading">
+        <h2 id="bugs-heading">Three bugs, found and reproduced</h2>
+        <p>The RTL is deliberately left unfixed in the repo, so each bug can be reproduced live with <code>make bugs</code>. The log lines below are real output from Cadence Xcelium.</p>
+
+        <article class="bug-card" data-reveal>
+          <p class="bug-card__tag">Bug #1</p>
+          <h3>The error response arrives one beat late</h3>
+          <dl>
+            <dt>Symptom</dt>
+            <dd>A read burst that runs past the end of memory hits address <code>0x80</code> on beat 2 but returns <code>OKAY</code>; <code>DECERR</code> only shows up a beat later. A write burst whose final beat is the first illegal one gets an <code>OKAY</code> write response.</dd>
+            <dt>Root cause</dt>
+            <dd>The error flag is set with a non-blocking assignment and read back in the same <code>always_ff</code> evaluation, so the response logic sees the previous value, not the one just computed.</dd>
+            <dt>How it was caught</dt>
+            <dd>Tightening the scoreboard to expect the exact response on every beat, plus directed bursts built to turn illegal mid-burst. Bursts that are illegal from beat 0 return <code>DECERR</code> correctly, so only this case exposes it.</dd>
+            <dt>Fix direction</dt>
+            <dd>Compute the error for the current beat combinationally, or register the response one cycle later. Never read an NBA-updated flag in the block that wrote it.</dd>
+          </dl>
+          <pre><code>UVM_ERROR axi_scoreboard.sv(119) [AXI_SCB] RRESP mismatch beat2 exp=DECERR got=0 (addr=0x80 len=3 size=2 burst=AXI_BURST_INCR)
+UVM_ERROR axi_scoreboard.sv(77)  [AXI_SCB] BRESP mismatch exp=DECERR got=0 (addr=0x74 len=3 size=2 burst=AXI_BURST_INCR wid_mm=0 wlast_mm=0)</code></pre>
+        </article>
+
+        <article class="bug-card" data-reveal>
+          <p class="bug-card__tag">Bug #2</p>
+          <h3>The write FSM deadlocks on an early WLAST</h3>
+          <dl>
+            <dt>Symptom</dt>
+            <dd>When a master ends a write burst one beat early, the slave never returns a write response. No <code>BVALID</code>, no recovery: the write channel is locked.</dd>
+            <dt>Root cause</dt>
+            <dd>An early <code>WLAST</code> only sets the error flag. The write FSM still waits for the beat counter to reach <code>AWLEN+1</code>, so it never moves on to the response state.</dd>
+            <dt>How it was caught</dt>
+            <dd>A directed early-<code>WLAST</code> test with a 20&nbsp;µs watchdog, backed by the scoreboard's zero-transaction guard, which refuses to call a burst that never completed a pass.</dd>
+            <dt>Fix direction</dt>
+            <dd>Treat <code>WLAST</code> as the burst terminator: on an early <code>WLAST</code>, go straight to the response state with an error response.</dd>
+          </dl>
+          <pre><code>UVM_ERROR axi_tests.sv(208) [BUG2_HANG] DUT hung after early WLAST: write FSM ignored WLAST and never returned BRESP (axi_slave.sv WR_DATA state)
+UVM_ERROR axi_scoreboard.sv(151) [AXI_SCB] No transactions observed - the test drove nothing; a silent pass is not a pass</code></pre>
+        </article>
+
+        <article class="bug-card" data-reveal>
+          <p class="bug-card__tag">Bug #3</p>
+          <h3>A rejected burst still writes to memory</h3>
+          <dl>
+            <dt>Symptom</dt>
+            <dd>A burst whose <code>WID</code> doesn't match <code>AWID</code> correctly gets <code>DECERR</code>, but its data is written to memory anyway.</dd>
+            <dt>Root cause</dt>
+            <dd>The memory write is gated only by the per-beat size, burst and address checks, never by the <code>WID</code> mismatch detected on the same beat.</dd>
+            <dt>How it was caught</dt>
+            <dd>The reference model predicted the whole burst would be rejected and kept the memory's reset value; the readback returned the “rejected” data instead. Constrained-random <code>WRAP</code> bursts with an unaligned start address independently exposed the same commit-on-error behavior.</dd>
+            <dt>Fix direction</dt>
+            <dd>Qualify the memory write with the accumulated per-beat error, or buffer the burst and commit it only once it's confirmed clean.</dd>
+          </dl>
+          <pre><code>UVM_ERROR axi_scoreboard.sv(126) [AXI_SCB] RDATA mismatch beat0 addr=0x40 exp=0x0c0c0c0c got=0xc1d00000
+UVM_ERROR axi_scoreboard.sv(126) [AXI_SCB] RDATA mismatch beat1 addr=0x44 exp=0x0c0c0c0c got=0xc1d00001
+...</code></pre>
+        </article>
+      </section>
+
+      <section class="case-section" aria-labelledby="tests-heading">
+        <h2 id="tests-heading">The tests</h2>
+        <div class="table-wrap">
+          <table class="case-table">
+            <thead><tr><th scope="col">Test</th><th scope="col">What it verifies</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td><code>axi_smoke_test</code></td><td>Directed 4-beat INCR write and readback</td><td>Pass</td></tr>
+              <tr><td><code>axi_random_test</code></td><td>400 constrained-random bursts across every burst type, size and length, with random strobes and backpressure</td><td>Pass</td></tr>
+              <tr><td><code>axi_backpressure_test</code></td><td>Bursty multi-cycle <code>BREADY</code>/<code>RREADY</code> stalls that stress the stability assertions</td><td>Pass</td></tr>
+              <tr><td><code>axi_b2b_test</code></td><td>Zero-idle back-to-back write/read pairs</td><td>Pass</td></tr>
+              <tr><td><code>axi_reset_test</code></td><td>Reset in the middle of a write burst, then clean traffic after recovery</td><td>Pass</td></tr>
+              <tr><td><code>axi_error_test</code></td><td>Out-of-range addresses, illegal sizes, reserved bursts, bursts crossing the end of memory</td><td class="result-bug">Finds Bug #1</td></tr>
+              <tr><td><code>axi_wid_test</code></td><td>A <code>WID</code> ≠ <code>AWID</code> burst, then readback</td><td class="result-bug">Finds Bug #3</td></tr>
+              <tr><td><code>axi_early_wlast_test</code></td><td>The master ends a write burst one beat early</td><td class="result-bug">Finds Bug #2</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="results-heading">
+        <h2 id="results-heading">Results</h2>
+        <ul class="case-list">
+          <li>The five regression tests end with zero UVM errors.</li>
+          <li>The three bug-hunting tests fail on purpose, each with its documented signature, so every bug stays reproducible.</li>
+          <li>100% functional coverage via constrained-random and directed error-injection stimulus, with 14 interface assertions watching every handshake.</li>
+        </ul>
+      </section>
+
+      <nav class="case-next" aria-label="More work">
+        <a href="../#projects"><small>Back to</small><span><span aria-hidden="true">←</span> All work</span></a>
+        <a href="async-fifo.html"><small>Next case study</small><span>Proving a dual-clock FIFO safe <span aria-hidden="true">→</span></span></a>
+      </nav>
+    </article>
+  </main>
+
+  <footer id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" data-reveal>Let’s talk</h2>
+    <p data-reveal>I'm always happy to talk chips, verification, or where AI fits into the workflow — reach out any time.</p>
+    <div class="contact-actions" data-reveal>
+      <a href="mailto:db5309@nyu.edu" class="btn btn--primary">Email me</a>
+      <button type="button" class="btn copy-email" data-email="db5309@nyu.edu" hidden>Copy email</button>
+      <nav class="icon-links" aria-label="Profiles">
+        <a href="https://github.com/Dhirajzen" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg></a>
+        <a href="https://linkedin.com/in/dhirajzen30" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg></a>
+        <a href="https://www.youtube.com/@dhirajzen30" aria-label="YouTube" title="YouTube"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-youtube"/></svg></a>
+      </nav>
+    </div>
+    <p class="footer-meta"><span>db5309@nyu.edu</span> · <a href="#main">Back to top ↑</a></p>
+  </footer>
+</body>
+</html>

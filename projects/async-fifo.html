@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add('js');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proving a dual-clock FIFO safe: async FIFO case study — Dhirajzen</title>
+  <meta name="description" content="Case study: assertion-based verification of a dual-clock asynchronous FIFO with Gray-code pointers, two-flop synchronizers, and an SVA suite regressed across five clock ratios.">
+  <link rel="canonical" href="https://dhirajzen.github.io/projects/async-fifo.html">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://dhirajzen.github.io/projects/async-fifo.html">
+  <meta property="og:title" content="Proving a dual-clock FIFO safe: async FIFO case study — Dhirajzen">
+  <meta property="og:description" content="Case study: assertion-based verification of a dual-clock asynchronous FIFO with Gray-code pointers, two-flop synchronizers, and an SVA suite regressed across five clock ratios.">
+  <meta property="og:image" content="https://dhirajzen.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Proving a dual-clock FIFO safe: async FIFO case study — Dhirajzen">
+  <meta name="twitter:description" content="Case study: assertion-based verification of a dual-clock asynchronous FIFO with Gray-code pointers, two-flop synchronizers, and an SVA suite regressed across five clock ratios.">
+  <meta name="twitter:image" content="https://dhirajzen.github.io/og-image.png">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+  <script data-goatcounter="https://dhirajzen.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <svg class="site-bg-wave" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#circuit-pattern)" /></svg>
+  <svg class="site-bg-wave-active" aria-hidden="true" focusable="false"><rect width="100%" height="100%" fill="url(#circuit-pattern-active)" /></svg>
+
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="circuit-pattern" width="120" height="120" patternUnits="userSpaceOnUse">
+        <path class="circuit-trace" d="M0,26 H38 V64 H90 V120 M64,0 V46 H120 M0,96 H20 V70" />
+        <circle class="circuit-via" cx="38" cy="26" r="2.5" />
+        <circle class="circuit-via" cx="38" cy="64" r="2.5" />
+        <circle class="circuit-via" cx="90" cy="64" r="2.5" />
+        <circle class="circuit-via" cx="64" cy="46" r="2.5" />
+        <circle class="circuit-via" cx="20" cy="96" r="2.5" />
+      </pattern>
+      <pattern id="circuit-pattern-active" width="120" height="120" patternUnits="userSpaceOnUse">
+        <path class="circuit-trace-active" d="M0,26 H38 V64 H90 V120 M64,0 V46 H120 M0,96 H20 V70" />
+        <circle class="circuit-via-active" cx="38" cy="26" r="3" />
+        <circle class="circuit-via-active" cx="38" cy="64" r="3" />
+        <circle class="circuit-via-active" cx="90" cy="64" r="3" />
+        <circle class="circuit-via-active" cx="64" cy="46" r="3" />
+        <circle class="circuit-via-active" cx="20" cy="96" r="3" />
+      </pattern>
+      <pattern id="waveform-pattern" width="400" height="300" patternUnits="userSpaceOnUse">
+        <path class="waveform-pattern-path" d="M-50,200 L50,200 L50,100 L150,100 L150,200 L220,200 L220,100 L260,100 L260,200 L360,200 L360,100 L400,100" />
+      </pattern>
+      <!-- Icon sprite: referenced with <use href="#icon-…"> wherever a link needs one. -->
+      <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+      <symbol id="icon-youtube" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></g></symbol>
+    </defs>
+  </svg>
+
+  <nav class="site-nav" aria-label="Section navigation">
+    <a href="../" class="site-nav__brand" aria-label="Dhirajzen — home">
+      <svg class="site-nav__brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="var(--text-dark)"/>
+        <text x="32" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" font-weight="700" fill="var(--accent)" text-anchor="middle">DZ</text>
+      </svg>
+    </a>
+    <button type="button" class="site-nav__toggle" aria-expanded="false" aria-controls="site-nav-links" aria-label="Open menu">
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+      <span class="site-nav__toggle-bar"></span>
+    </button>
+    <div class="site-nav__links" id="site-nav-links">
+      <a href="../#projects">Work</a>
+      <a href="../#videos">Videos</a>
+      <a href="../#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="../resume.pdf" class="site-nav__resume">Resume</a>
+    <span class="site-nav__progress" aria-hidden="true"></span>
+  </nav>
+
+  <main id="main">
+    <article class="case">
+      <header class="case-hero">
+        <a class="case-back" href="../#projects"><span aria-hidden="true">←</span> All work</a>
+        <p class="project-kicker">Case study · Clock domain crossing</p>
+        <h1>Proving a dual-clock FIFO safe</h1>
+        <p class="case-lede">Assertion-based verification of a parameterized dual-clock asynchronous FIFO: Gray-code pointers, two-flop synchronizers, and an SVA suite regressed across five clock ratios on Cadence Xcelium.</p>
+        <ul class="glance" aria-label="Key results">
+          <li><span class="glance__value">14</span><span class="glance__label">assertions</span></li>
+          <li><span class="glance__value">8</span><span class="glance__label">cover properties</span></li>
+          <li><span class="glance__value">5</span><span class="glance__label">clock-ratio scenarios</span></li>
+        </ul>
+        <ul class="tag-list">
+          <li>SystemVerilog</li>
+          <li>SVA</li>
+          <li>CDC</li>
+          <li>Asynchronous FIFO</li>
+          <li>Cadence Xcelium</li>
+        </ul>
+        <div class="case-actions">
+          <a class="btn btn--primary" href="https://github.com/Dhirajzen/Asynchronous-FIFO"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg> View the code on GitHub</a>
+          <a class="btn" href="#explainer"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-youtube"/></svg> Watch the explainer</a>
+        </div>
+      </header>
+
+      <section class="case-section" aria-labelledby="problem-heading">
+        <h2 id="problem-heading">The problem: two clocks that never agree</h2>
+        <p>When the write side and the read side of a FIFO run on unrelated clocks, each side still has to know where the other's pointer is. Sample a multi-bit binary pointer while it's changing and you can capture a value it never actually held: going from 7 to 8 flips four bits at once.</p>
+        <p>The standard fix, and the design here: keep binary pointers for addressing, cross Gray-coded pointers (only one bit changes per step) through two-flop synchronizers, and compute FULL in the write domain and EMPTY in the read domain.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="design-heading">
+        <h2 id="design-heading">The design</h2>
+        <figure class="case-figure" data-reveal>
+          <svg class="diagram" viewBox="0 0 520 260" role="img" aria-labelledby="fifo-diagram-title">
+            <title id="fifo-diagram-title">Async FIFO: the write and read clock domains share a memory; each side's Gray-coded pointer crosses to the other side through a two-flop synchronizer</title>
+            <defs>
+              <marker id="dg-arrow-fifo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrowhead" d="M0 0 10 5 0 10z"/></marker>
+            </defs>
+            <rect class="dg-group" x="6" y="6" width="150" height="248" rx="12"/>
+            <text class="dg-label" x="18" y="27">w_clk domain</text>
+            <rect class="dg-group" x="364" y="6" width="150" height="248" rx="12"/>
+            <text class="dg-label" x="376" y="27">r_clk domain</text>
+            <rect class="dg-box" x="20" y="48" width="122" height="46" rx="7"/>
+            <text class="dg-text" x="81" y="68">wfull</text>
+            <text class="dg-sub" x="81" y="84">wptr · FULL</text>
+            <rect class="dg-box" x="378" y="48" width="122" height="46" rx="7"/>
+            <text class="dg-text" x="439" y="68">rempty</text>
+            <text class="dg-sub" x="439" y="84">rptr · EMPTY</text>
+            <rect class="dg-box dg-box--dut" x="190" y="40" width="140" height="62" rx="10"/>
+            <text class="dg-text dg-text--strong" x="260" y="69">fifo_mem</text>
+            <text class="dg-sub" x="260" y="87">DEPTH × WIDTH</text>
+            <path class="dg-wire" d="M142 71 H186" marker-end="url(#dg-arrow-fifo)"/>
+            <path class="dg-wire" d="M378 71 H334" marker-end="url(#dg-arrow-fifo)"/>
+            <rect class="dg-box" x="190" y="134" width="140" height="40" rx="7"/>
+            <text class="dg-text" x="260" y="151">sync_w2r</text>
+            <text class="dg-sub" x="260" y="165">2-flop · Gray wptr</text>
+            <rect class="dg-box" x="190" y="196" width="140" height="40" rx="7"/>
+            <text class="dg-text" x="260" y="213">sync_r2w</text>
+            <text class="dg-sub" x="260" y="227">2-flop · Gray rptr</text>
+            <path class="dg-wire" d="M100 94 V154 H186" marker-end="url(#dg-arrow-fifo)"/>
+            <path class="dg-wire" d="M330 154 H418 V98" marker-end="url(#dg-arrow-fifo)"/>
+            <path class="dg-wire" d="M460 94 V216 H334" marker-end="url(#dg-arrow-fifo)"/>
+            <path class="dg-wire" d="M190 216 H62 V98" marker-end="url(#dg-arrow-fifo)"/>
+          </svg>
+          <figcaption>Each domain owns its pointer and flag. Only Gray-coded pointers cross between domains, each through its own two-flop synchronizer.</figcaption>
+        </figure>
+        <div class="table-wrap">
+          <table class="case-table">
+            <thead><tr><th scope="col">Module</th><th scope="col">Role</th></tr></thead>
+            <tbody>
+              <tr><td><code>top.sv</code></td><td>Integration; enforces a power-of-two <code>DEPTH</code> at elaboration with <code>$fatal</code>, since the FULL/EMPTY comparison depends on it</td></tr>
+              <tr><td><code>fifo_mem.sv</code></td><td>Memory array, written on <code>w_clk</code> and read on <code>r_clk</code></td></tr>
+              <tr><td><code>wfull.sv</code></td><td>Binary and Gray write pointers; FULL via the MSB-invert comparison</td></tr>
+              <tr><td><code>rempty.sv</code></td><td>Binary and Gray read pointers; EMPTY detection</td></tr>
+              <tr><td><code>sync_w2r.sv</code>, <code>sync_r2w.sv</code></td><td>Two-flop synchronizers, one per pointer crossing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="sva-heading">
+        <h2 id="sva-heading">Assertions, bound from the outside</h2>
+        <p>The checkers live outside the RTL and are attached with <code>bind</code>, so every design file still compiles for synthesis unchanged while the assertions reach internal signals no port exposes, like the Gray pointers and the first stage inside each synchronizer. Each property is clocked in the domain that owns its signals.</p>
+        <div class="table-wrap">
+          <table class="case-table">
+            <thead><tr><th scope="col">Assertion</th><th scope="col">What it proves</th></tr></thead>
+            <tbody>
+              <tr><td><code>a_wptr_gray</code>, <code>a_rptr_gray</code></td><td>Each pointer changes by at most one bit per clock. The whole CDC scheme depends on this.</td></tr>
+              <tr><td><code>a_no_overflow</code></td><td>A write while FULL never advances the write pointer, so unread data is never overwritten.</td></tr>
+              <tr><td><code>a_no_underflow</code></td><td>A read while EMPTY never advances the read pointer.</td></tr>
+              <tr><td><code>a_not_full_and_empty</code></td><td>FULL and EMPTY are never asserted together.</td></tr>
+              <tr><td><code>a_reset_empty</code>, <code>a_reset_not_full</code></td><td>Reset leaves the FIFO empty, not full.</td></tr>
+              <tr><td><code>a_stage1</code>, <code>a_stage2</code></td><td>Each synchronizer really is two flops deep, stage by stage.</td></tr>
+              <tr><td><code>a_two_flop_latency</code></td><td>Crossing latency is exactly two destination clocks: not fewer, not more.</td></tr>
+              <tr><td><code>a_no_x_*</code></td><td>No X on the flags, the pointers, or read data during an active read.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The 8 cover properties record that the interesting corners were actually reached, including FULL, EMPTY, write-while-full, read-while-empty, simultaneous read and write, and both flags releasing again.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="ratios-heading">
+        <h2 id="ratios-heading">Five clock ratios</h2>
+        <div class="table-wrap">
+          <table class="case-table">
+            <thead><tr><th scope="col">Scenario</th><th scope="col">Write : read half-period</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Balanced 1:1</td><td>5.0 : 5.0 ns</td><td>Baseline random traffic</td></tr>
+              <tr><td>Fast write, slow read</td><td>5.0 : 15.0 ns</td><td>Drives the FULL boundary</td></tr>
+              <tr><td>Slow write, fast read</td><td>15.0 : 5.0 ns</td><td>Drives the EMPTY boundary</td></tr>
+              <tr><td>Non-harmonic phase drift</td><td>5.0 : 3.5 ns</td><td>Edge alignment drifts continuously, sweeping every phase relationship</td></tr>
+              <tr><td>FULL boundary hammer</td><td>5.0 : 25.0 ns</td><td>Sustained backpressure against FULL</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Monitors sample through clocking blocks with <code>input #1step</code>, so the checker sees exactly what the DUT's flops acted on and can never race a non-blocking update. A reference queue catches both corrupted data and reordering.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="caught-heading">
+        <h2 id="caught-heading">What the first real Xcelium run caught</h2>
+        <article class="bug-card" data-reveal>
+          <p class="bug-card__tag">Testbench race</p>
+          <h3>A write that slipped in during the drain</h3>
+          <p>One shared enable drove both stimulus generators. At the switch from traffic to drain, the write generator could read the old write rate on the same clock edge the drain started (two processes woken by the same edge have no guaranteed order in SystemVerilog), sneaking in one extra write after the drain check had begun trusting the model. Reads were then cut off as soon as that check passed, stranding the write: “1 written item never came back out” in the slow-write, fast-read scenario.</p>
+          <p><strong>Fix:</strong> separate write and read enables. Writes stop first, with a two-cycle settle on the write clock, and reads stay live for the whole drain, guaranteeing a lossless drain.</p>
+        </article>
+        <article class="bug-card" data-reveal>
+          <p class="bug-card__tag">Wrong assertion</p>
+          <h3>When the checker, not the design, was wrong</h3>
+          <p>An early property asserted that the synchronized pointer changes by at most one bit per destination clock. That only holds when both clocks run at the same rate, so it fired on every non-1:1 scenario, while the scoreboard's independent data check stayed at zero mismatches. That disagreement pointed at the assertion, not the design: the one-bit-per-clock check belongs on each pointer's own clock, where it already existed.</p>
+        </article>
+      </section>
+
+      <section class="case-section" aria-labelledby="earned-heading">
+        <h2 id="earned-heading">A pass has to be earned</h2>
+        <ul class="case-list">
+          <li>Any data mismatch, underflow, data left behind after the drain, assertion failure or timeout fails the run.</li>
+          <li>So does a run that saw no traffic, or never reached FULL or EMPTY. An untested corner is not a passing corner.</li>
+        </ul>
+      </section>
+
+      <section class="case-section" id="explainer" aria-labelledby="video-heading">
+        <h2 id="video-heading">The concept, explained</h2>
+        <article class="video-card case-video" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=NLQoDZw3vug" data-video-id="NLQoDZw3vug" data-video-title="Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist" aria-label="Play video: Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist">
+            <img src="https://i.ytimg.com/vi/NLQoDZw3vug/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Clock domain crossing</p>
+            <h3>Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist</h3>
+            <p>Builds an asynchronous FIFO step by step: the lap bit, metastability and the two-flop synchronizer, why a binary pointer going from 7 to 8 can arrive as 15, and how Gray code fixes it.</p>
+          </div>
+        </article>
+      </section>
+
+      <nav class="case-next" aria-label="More work">
+        <a href="axi4-uvm.html"><small>Previous case study</small><span><span aria-hidden="true">←</span> How a strict scoreboard caught 3 RTL bugs</span></a>
+        <a href="../#projects"><small>Back to</small><span>All work <span aria-hidden="true">→</span></span></a>
+      </nav>
+    </article>
+  </main>
+
+  <footer id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" data-reveal>Let’s talk</h2>
+    <p data-reveal>I'm always happy to talk chips, verification, or where AI fits into the workflow — reach out any time.</p>
+    <div class="contact-actions" data-reveal>
+      <a href="mailto:db5309@nyu.edu" class="btn btn--primary">Email me</a>
+      <button type="button" class="btn copy-email" data-email="db5309@nyu.edu" hidden>Copy email</button>
+      <nav class="icon-links" aria-label="Profiles">
+        <a href="https://github.com/Dhirajzen" aria-label="GitHub" title="GitHub"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-github"/></svg></a>
+        <a href="https://linkedin.com/in/dhirajzen30" aria-label="LinkedIn" title="LinkedIn"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"/></svg></a>
+        <a href="https://www.youtube.com/@dhirajzen30" aria-label="YouTube" title="YouTube"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-youtube"/></svg></a>
+      </nav>
+    </div>
+    <p class="footer-meta"><span>db5309@nyu.edu</span> · <a href="#main">Back to top ↑</a></p>
+  </footer>
+</body>
+</html>
