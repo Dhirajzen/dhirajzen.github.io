@@ -17,6 +17,28 @@
   <meta name="twitter:title" content="Dhirajzen Bagawath Geetha Kumaravel — Aspiring ASIC Design Verification Engineer">
   <meta name="twitter:description" content="Aspiring ASIC Design Verification Engineer specializing in UVM, SystemVerilog, and AI/LLM tooling for verification. Open to full-time DV/RTL roles.">
   <meta name="twitter:image" content="https://dhirajzen.github.io/og-image.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dhirajzen Bagawath Geetha Kumaravel",
+    "jobTitle": "Aspiring ASIC Design Verification Engineer",
+    "url": "https://dhirajzen.github.io/",
+    "image": "https://dhirajzen.github.io/headshot.jpg",
+    "email": "mailto:db5309@nyu.edu",
+    "address": { "@type": "PostalAddress", "addressLocality": "Brooklyn", "addressRegion": "NY", "addressCountry": "US" },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "New York University Tandon School of Engineering" },
+      { "@type": "CollegeOrUniversity", "name": "College of Engineering Guindy, Anna University" }
+    ],
+    "knowsAbout": ["ASIC Design Verification", "UVM", "SystemVerilog", "SystemVerilog Assertions", "Functional Coverage", "Clock Domain Crossing", "AXI4"],
+    "sameAs": [
+      "https://github.com/Dhirajzen",
+      "https://www.linkedin.com/in/dhirajzen30/",
+      "https://www.youtube.com/@dhirajzen30"
+    ]
+  }
+  </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
@@ -69,6 +91,7 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
+      <a href="#videos">Videos</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
@@ -84,6 +107,7 @@
       <a href="resume.pdf" class="hero-link hero-link--primary">Resume</a>
       <a href="https://github.com/Dhirajzen" class="hero-link">GitHub</a>
       <a href="https://linkedin.com/in/dhirajzen30" class="hero-link">LinkedIn</a>
+      <a href="https://www.youtube.com/@dhirajzen30" class="hero-link">YouTube</a>
       <a href="mailto:db5309@nyu.edu" class="hero-link">Email</a>
     </nav>
   </header>
@@ -97,6 +121,7 @@
         <div class="about-text">
           <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon School of Engineering (Sept 2024 – May 2026), with a CGPA of 3.87/4.0. My coursework spans Generative AI Based Chip Design, SoC Design, Computing Systems Architecture, and VLSI Systems &amp; Architecture.</p>
           <p data-reveal>I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
+          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to how chips survive a flipped bit.</p>
         </div>
       </div>
     </section>
@@ -119,7 +144,11 @@
             <li>UVM</li>
             <li>Constrained-Random Verification</li>
             <li>SystemVerilog Assertions (SVA)</li>
-            <li>Functional Coverage</li>
+            <li>Assertion-Based Verification</li>
+            <li>Functional &amp; Code Coverage</li>
+            <li>Coverage Closure</li>
+            <li>Scoreboarding</li>
+            <li>Reference Modeling</li>
           </ul>
         </div>
         <div class="skill-panel" data-reveal>
@@ -135,14 +164,19 @@
         <div class="skill-panel" data-reveal>
           <h3>Tools</h3>
           <ul class="tag-list">
+            <li>Cadence Xcelium</li>
+            <li>SimVision</li>
+            <li>IMC</li>
             <li>Synopsys VCS</li>
             <li>Design Compiler</li>
-            <li>Cadence Xcelium</li>
             <li>Genus</li>
             <li>Innovus</li>
             <li>Virtuoso</li>
             <li>OpenLane</li>
             <li>Xilinx Vivado</li>
+            <li>Linux</li>
+            <li>Git</li>
+            <li>Make</li>
           </ul>
         </div>
         <div class="skill-panel" data-reveal>
@@ -177,6 +211,21 @@
       <noscript>
         <ol class="projects-noscript">
           <li>
+            <h3>Verification of a Burst-Capable AXI4 Slave Using SystemVerilog and UVM</h3>
+            <ul>
+              <li>Built a UVM environment (driver, monitor, reference-model scoreboard, functional coverage) verifying AXI4 FIXED/INCR/WRAP bursts, byte-lane strobes, and error responses across 8 tests on Cadence Xcelium.</li>
+              <li>Wrote 14 SystemVerilog Assertions for channel handshake, payload stability, and reset protocol compliance; achieved 100% functional coverage via constrained-random and directed error-injection stimulus.</li>
+              <li>Found and root-caused 3 RTL bugs — a response-flag race condition, a write-FSM deadlock on early WLAST, and an error-path memory-corruption bug — using a strict per-beat scoreboard and directed error injection.</li>
+            </ul>
+          </li>
+          <li>
+            <h3>Assertion-Based Verification of a Dual-Clock Asynchronous FIFO for CDC</h3>
+            <ul>
+              <li>Designed and verified a parameterized dual-clock asynchronous FIFO (Gray-code pointers, 2-flop CDC synchronizers, MSB-invert full/empty logic) with a self-checking SystemVerilog testbench and a 14-assertion / 8-cover-property SVA suite regressed across 5 clock-ratio scenarios on Cadence Xcelium.</li>
+              <li>Root-caused a same-edge race condition between the write- and read-clock-domain stimulus shutdown paths that could silently drop an in-flight write during drain; fixed it by decoupling the write/read enables for a guaranteed lossless drain.</li>
+            </ul>
+          </li>
+          <li>
             <h3>LLM-Assisted Verification Assistant Using LangChain, LangGraph, and RAG</h3>
             <ul>
               <li>Built a RAG pipeline over the 500-page ARM AXI4 specification using LangChain, ChromaDB, and Claude, with regex preprocessing, semantic chunking, and MMR retrieval for grounded spec Q&amp;A.</li>
@@ -184,39 +233,55 @@
             </ul>
           </li>
           <li>
-            <h3>Verification of AXI4-Lite Slave Interface Using SystemVerilog and UVM</h3>
-            <ul>
-              <li>Authored a Verification Plan covering reset behavior, address alignment, and corner-case transactions.</li>
-              <li>Built a complete UVM environment (driver, monitor, sequencer, scoreboard) with constrained-random stimulus verifying handshake timing and back-to-back transaction stability.</li>
-              <li>Achieved functional coverage closure validating protocol compliance across read and write channels.</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Design Verification of APB Protocol Using SystemVerilog and UVM</h3>
-            <ul>
-              <li>Authored a Verification Plan covering reset behavior, PSLVERR responses, address alignment, and back-to-back transfers.</li>
-              <li>Built a UVM environment with scoreboard validating APB protocol compliance under constrained-random stimulus.</li>
-              <li>Achieved 100% Functional Coverage across address and data cross-bins during coverage closure.</li>
-            </ul>
-          </li>
-          <li>
-            <h3>Asynchronous FIFO for Robust Clock Domain Crossing (CDC)</h3>
-            <ul>
-              <li>Verified a CDC-safe asynchronous FIFO with independent read/write clock domains and Gray-code pointer synchronization.</li>
-              <li>Implemented SystemVerilog Assertions (SVA) monitoring pointer stability and two-flop synchronizer latency across multiple clock ratios.</li>
-              <li>Stress-tested under asynchronous reset, clock skew, and boundary conditions ensuring CDC robustness.</li>
-            </ul>
-          </li>
-          <li>
             <h3>Functional Verification of SPI Protocol Using SystemVerilog and UVM</h3>
             <ul>
               <li>Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.</li>
-              <li>Designed a self-checking scoreboard using a 32×8 reference memory model validating readback data correctness.</li>
-              <li>Verified protocol compliance during reset recovery and corner-case timing scenarios.</li>
+              <li>Designed a self-checking scoreboard using a 32×8 reference memory model validating readback correctness through reset recovery and corner-case timing scenarios.</li>
             </ul>
           </li>
         </ol>
       </noscript>
+    </section>
+
+    <section id="videos" aria-labelledby="videos-heading">
+      <h2 id="videos-heading" data-reveal>Videos</h2>
+      <p class="section-intro" data-reveal>I explain digital design and verification concepts on YouTube, worked through step by step from first principles.</p>
+      <div class="video-grid">
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=aiX9myUAh60" data-video-id="aiX9myUAh60" data-video-title="FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)" aria-label="Play video: FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)">
+            <img src="https://i.ytimg.com/vi/aiX9myUAh60/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Interview prep</p>
+            <h3>FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)</h3>
+            <p>One idea answers every version of “how deep must this FIFO be?”: it only has to hold the backlog that builds while writes outpace reads. It solves the standard case, then works through eight traps, from idle cycles and the 2X trap to back-to-back bursts and async margin.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=NLQoDZw3vug" data-video-id="NLQoDZw3vug" data-video-title="Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist" aria-label="Play video: Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist">
+            <img src="https://i.ytimg.com/vi/NLQoDZw3vug/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Clock domain crossing</p>
+            <h3>Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist</h3>
+            <p>Builds an asynchronous FIFO step by step to show how data crosses safely between two unrelated clocks: the lap bit, metastability and the two-flop synchronizer, why a binary pointer going from 7 to 8 can arrive as 15, and how Gray code fixes it.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=ET1wU6dEvhg" data-video-id="ET1wU6dEvhg" data-video-title="The Error Nobody Notices: How Chips Survive a Bit Flip" aria-label="Play video: The Error Nobody Notices: How Chips Survive a Bit Flip">
+            <img src="https://i.ytimg.com/vi/ET1wU6dEvhg/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Reliability &amp; ECC</p>
+            <h3>The Error Nobody Notices: How Chips Survive a Bit Flip</h3>
+            <p>A 2003 Belgian election gave one candidate exactly 4,096 extra votes: 2<sup>12</sup>, a single flipped bit. What a bit flip is, how chips survive one with parity and ECC, and how verification engineers use fault injection to prove every flip gets fixed or caught.</p>
+          </div>
+        </article>
+      </div>
+      <a class="videos-cta" href="https://www.youtube.com/@dhirajzen30" data-reveal>Subscribe on YouTube</a>
     </section>
 
     <section id="experience" aria-labelledby="experience-heading">
@@ -225,8 +290,8 @@
         <h3>Course Assistant, VLSI System &amp; Architecture Design</h3>
         <p class="timeline-meta">New York University, New York, USA — June 2025 – May 2026</p>
         <ul>
-          <li>Automated a grading pipeline using Python scripts to run student RTL submissions through VCS and generate structured reports.</li>
-          <li>Prepared hands-on lab manuals and assignments for schematic/layout and digital design.</li>
+          <li>Automated a Python grading pipeline that batch-compiles and simulates student RTL submissions in Synopsys VCS and generates structured pass/fail reports.</li>
+          <li>Prepared hands-on lab manuals and assignments for schematic/layout and digital design; debugged student RTL and testbench issues during lab hours.</li>
         </ul>
       </article>
     </section>
@@ -252,6 +317,7 @@
       <a href="mailto:db5309@nyu.edu">Email</a>
       <a href="https://github.com/Dhirajzen">GitHub</a>
       <a href="https://linkedin.com/in/dhirajzen30">LinkedIn</a>
+      <a href="https://www.youtube.com/@dhirajzen30">YouTube</a>
     </nav>
   </footer>
 </body>

@@ -168,7 +168,7 @@ button:focus-visible {
     border-bottom: 1px solid rgba(29, 29, 31, 0.08);
     transition: max-height 0.3s ease;
   }
-  .site-nav__links[data-open="true"] { max-height: 20rem; }
+  .site-nav__links[data-open="true"] { max-height: 28rem; }
   .site-nav__links a {
     padding: 0.75rem clamp(1.5rem, 5vw, 4rem);
   }
@@ -426,6 +426,13 @@ footer#contact h2 {
   border-radius: 12px;
 }
 .about-text p + p { margin-top: 1.5rem; }
+.about-text a {
+  color: var(--accent-on-light);
+  font-weight: 600;
+  border-bottom: 1.5px solid currentColor;
+  transition: color 0.2s ease;
+}
+.about-text a:hover { color: var(--text-dark); }
 @media (max-width: 767px) {
   .about-layout {
     grid-template-columns: 1fr;
@@ -534,7 +541,38 @@ footer#contact h2 {
   border-radius: 50%;
   background: var(--accent);
 }
+/* Headline numbers (bugs found, assertions, coverage) — big copper values
+   with a muted label underneath, each hung off a thin accent rule. */
+.project-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: 1.75rem;
+}
+.project-stats li {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.9rem;
+  border-left: 2px solid rgba(201, 130, 44, 0.5);
+}
+.project-stat__value {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.project-stat__label {
+  font-size: 0.875rem;
+  color: var(--text-light-muted);
+}
 .project-card .tag-list { margin-bottom: 1.5rem; }
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+}
 .project-link {
   display: inline-block;
   color: var(--accent);
@@ -543,7 +581,121 @@ footer#contact h2 {
   transition: border-color 0.2s ease;
 }
 .project-link:hover { border-color: var(--accent); }
+.project-link--video::before {
+  content: "";
+  display: inline-block;
+  border-style: solid;
+  border-width: 0.35em 0 0.35em 0.6em;
+  border-color: transparent transparent transparent currentColor;
+  margin-right: 0.5em;
+  vertical-align: 0.05em;
+}
 .projects-noscript { display: none; }
+
+/* ===== Videos ===== */
+main > section h2:has(+ .section-intro) { margin-bottom: 0.75rem; }
+.section-intro {
+  max-width: 60ch;
+  margin-bottom: 2rem;
+  color: var(--text-dark-muted);
+  background: var(--bg-light);
+  padding: 0.25em 0;
+  border-radius: 12px;
+}
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+.video-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid rgba(29, 29, 31, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+/* The thumbnail link and the iframe that replaces it on click share one
+   16:9 box, so the card doesn't jump when the player loads. hqdefault
+   thumbnails are 4:3 with letterbox bars; object-fit crops them off. */
+.video-thumb,
+.video-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-dark);
+  border: 0;
+}
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.video-thumb:hover img { transform: scale(1.03); }
+/* Card clips overflow (for the rounded corners), which would also clip
+   the default outside focus ring — draw it inset instead. */
+.video-thumb:focus-visible { outline-offset: -3px; }
+.video-thumb__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4rem;
+  height: 2.75rem;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  transition: background 0.2s ease;
+}
+.video-thumb__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 0.6rem 0 0.6rem 1rem;
+  border-color: transparent transparent transparent #ffffff;
+}
+.video-thumb:hover .video-thumb__play,
+.video-thumb:focus-visible .video-thumb__play { background: var(--accent-on-light); }
+.video-card__body { padding: 1.25rem 1.5rem 1.5rem; }
+.video-card__topic {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-on-light);
+  margin-bottom: 0.5rem;
+}
+.video-card h3 {
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 0.6rem;
+}
+.video-card__body p:not(.video-card__topic) {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-dark-muted);
+}
+.video-card sup { line-height: 0; }
+.videos-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--text-dark);
+  color: var(--bg-light);
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+.videos-cta:hover { background: var(--accent-on-light); }
+@media (prefers-reduced-motion: reduce) {
+  .video-thumb img { transition: none; }
+  .video-thumb:hover img { transform: none; }
+}
 
 /* ===== Experience / Education ===== */
 .timeline-item + .timeline-item { margin-top: 2.5rem; }

@@ -1,6 +1,43 @@
 // Kept in sync with projects.json manually — used only if the fetch fails,
-// so the Featured Projects section still renders all 5 entries.
+// so the Featured Projects section still renders all 4 entries.
 const FALLBACK_PROJECTS = [
+  {
+    id: 'axi4-burst-slave-uvm',
+    title: 'Verification of a Burst-Capable AXI4 Slave Using SystemVerilog and UVM',
+    summary: 'A UVM testbench strict enough to catch three real RTL bugs, each reproducible with its own failing test.',
+    stats: [
+      { value: '3', label: 'RTL bugs found' },
+      { value: '14', label: 'SystemVerilog assertions' },
+      { value: '100%', label: 'functional coverage' },
+      { value: '8', label: 'tests on Xcelium' },
+    ],
+    bullets: [
+      'Built a UVM environment (driver, monitor, reference-model scoreboard, functional coverage) verifying AXI4 FIXED/INCR/WRAP bursts, byte-lane strobes, and error responses across 8 tests on Cadence Xcelium.',
+      'Wrote 14 SystemVerilog Assertions for channel handshake, payload stability, and reset protocol compliance; achieved 100% functional coverage via constrained-random and directed error-injection stimulus.',
+      'Found and root-caused 3 RTL bugs — a response-flag race condition, a write-FSM deadlock on early WLAST, and an error-path memory-corruption bug — using a strict per-beat scoreboard and directed error injection.',
+    ],
+    tags: ['SystemVerilog', 'UVM', 'AXI4', 'SVA', 'Cadence Xcelium'],
+    github: 'https://github.com/Dhirajzen/AXI4-UVM-Verification',
+    order: 1,
+  },
+  {
+    id: 'async-fifo-cdc',
+    title: 'Assertion-Based Verification of a Dual-Clock Asynchronous FIFO for CDC',
+    summary: 'A parameterized async FIFO proven with a bind-attached SVA suite across five write/read clock ratios.',
+    stats: [
+      { value: '14', label: 'assertions' },
+      { value: '8', label: 'cover properties' },
+      { value: '5', label: 'clock-ratio scenarios' },
+    ],
+    bullets: [
+      'Designed and verified a parameterized dual-clock asynchronous FIFO (Gray-code pointers, 2-flop CDC synchronizers, MSB-invert full/empty logic) with a self-checking SystemVerilog testbench and a 14-assertion / 8-cover-property SVA suite (bind-attached, race-free clocking-block sampling, reference-queue scoreboard) regressed across 5 clock-ratio scenarios on Cadence Xcelium.',
+      'Root-caused a same-edge race condition between the write- and read-clock-domain stimulus shutdown paths that could silently drop an in-flight write during drain; fixed it by decoupling the write/read enables for a guaranteed lossless drain.',
+    ],
+    tags: ['SystemVerilog', 'SVA', 'CDC', 'Asynchronous FIFO', 'Cadence Xcelium'],
+    github: 'https://github.com/Dhirajzen/Asynchronous-FIFO',
+    video: 'https://www.youtube.com/watch?v=NLQoDZw3vug',
+    order: 2,
+  },
   {
     id: 'llm-verification-assistant',
     title: 'LLM-Assisted Verification Assistant Using LangChain, LangGraph, and RAG',
@@ -11,46 +48,7 @@ const FALLBACK_PROJECTS = [
     ],
     tags: ['LangChain', 'LangGraph', 'RAG', 'ChromaDB', 'Claude'],
     github: 'https://github.com/Dhirajzen/dv-rag-assistant',
-    order: 1,
-  },
-  {
-    id: 'axi4-lite-slave-uvm',
-    title: 'Verification of AXI4-Lite Slave Interface Using SystemVerilog and UVM',
-    summary: 'Full UVM environment with constrained-random stimulus achieving functional coverage closure on AXI4-Lite.',
-    bullets: [
-      'Authored a Verification Plan covering reset behavior, address alignment, and corner-case transactions.',
-      'Built a complete UVM environment (driver, monitor, sequencer, scoreboard) with constrained-random stimulus verifying handshake timing and back-to-back transaction stability.',
-      'Achieved functional coverage closure validating protocol compliance across read and write channels.',
-    ],
-    tags: ['SystemVerilog', 'UVM', 'AXI4-Lite', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/AXI4-UVM-Verification',
-    order: 2,
-  },
-  {
-    id: 'apb-protocol-uvm',
-    title: 'Design Verification of APB Protocol Using SystemVerilog and UVM',
-    summary: 'UVM environment with scoreboard reaching 100% functional coverage on APB.',
-    bullets: [
-      'Authored a Verification Plan covering reset behavior, PSLVERR responses, address alignment, and back-to-back transfers.',
-      'Built a UVM environment with scoreboard validating APB protocol compliance under constrained-random stimulus.',
-      'Achieved 100% Functional Coverage across address and data cross-bins during coverage closure.',
-    ],
-    tags: ['SystemVerilog', 'UVM', 'APB', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/Design-Verification-Projects',
     order: 3,
-  },
-  {
-    id: 'async-fifo-cdc',
-    title: 'Asynchronous FIFO for Robust Clock Domain Crossing (CDC)',
-    summary: 'SVA-monitored CDC-safe FIFO stress-tested across clock ratios, skew, and async reset.',
-    bullets: [
-      'Verified a CDC-safe asynchronous FIFO with independent read/write clock domains and Gray-code pointer synchronization.',
-      'Implemented SystemVerilog Assertions (SVA) monitoring pointer stability and two-flop synchronizer latency across multiple clock ratios.',
-      'Stress-tested under asynchronous reset, clock skew, and boundary conditions ensuring CDC robustness.',
-    ],
-    tags: ['SystemVerilog', 'SVA', 'CDC', 'Asynchronous FIFO'],
-    github: 'https://github.com/Dhirajzen/Asynchronous-FIFO',
-    order: 4,
   },
   {
     id: 'spi-uvm',
@@ -58,12 +56,11 @@ const FALLBACK_PROJECTS = [
     summary: 'Self-checking SPI scoreboard validating CPOL/CPHA modes against a reference memory model.',
     bullets: [
       'Developed a UVM environment for an SPI controller with constrained-random read/write transactions and functional coverage tracking CPOL, CPHA modes.',
-      'Designed a self-checking scoreboard using a 32×8 reference memory model validating readback data correctness.',
-      'Verified protocol compliance during reset recovery and corner-case timing scenarios.',
+      'Designed a self-checking scoreboard using a 32×8 reference memory model validating readback correctness through reset recovery and corner-case timing scenarios.',
     ],
     tags: ['SystemVerilog', 'UVM', 'SPI', 'Functional Coverage'],
-    github: 'https://github.com/Dhirajzen/Design-Verification-Projects',
-    order: 5,
+    github: 'https://github.com/Dhirajzen/Design-Verification-Projects/tree/main/SPI_UVM_Verification',
+    order: 4,
   },
 ];
 
@@ -85,6 +82,17 @@ function renderProjectCard(project) {
   card.appendChild(el('h3', { text: project.title }));
   card.appendChild(el('p', { className: 'project-summary', text: project.summary }));
 
+  // Optional headline numbers (bugs found, assertions, coverage) — the
+  // quickest read of a DV project's depth, so they sit above the bullets.
+  if (project.stats && project.stats.length) {
+    card.appendChild(el('ul', { className: 'project-stats', ariaLabel: 'Key results' },
+      project.stats.map((stat) => el('li', {}, [
+        el('span', { className: 'project-stat__value', text: stat.value }),
+        el('span', { className: 'project-stat__label', text: stat.label }),
+      ]))
+    ));
+  }
+
   const bulletList = el('ul', { className: 'project-bullets' },
     project.bullets.map((bullet) => el('li', { text: bullet }))
   );
@@ -95,12 +103,23 @@ function renderProjectCard(project) {
   );
   card.appendChild(tagList);
 
-  card.appendChild(el('a', {
-    className: 'project-link',
-    href: project.github,
-    text: 'View on GitHub',
-    ariaLabel: `View ${project.title} on GitHub`,
-  }));
+  const links = el('div', { className: 'project-links' }, [
+    el('a', {
+      className: 'project-link',
+      href: project.github,
+      text: 'View on GitHub',
+      ariaLabel: `View ${project.title} on GitHub`,
+    }),
+  ]);
+  if (project.video) {
+    links.appendChild(el('a', {
+      className: 'project-link project-link--video',
+      href: project.video,
+      text: 'Watch the explainer',
+      ariaLabel: `Watch the YouTube explainer for ${project.title}`,
+    }));
+  }
+  card.appendChild(links);
 
   return card;
 }
@@ -214,8 +233,34 @@ function initCursorGlow() {
   document.addEventListener('mouseleave', () => layer.classList.remove('is-active'));
 }
 
+// ===== Videos: click-to-load YouTube embeds =====
+// Each video starts as a plain link to YouTube with a thumbnail, so nothing
+// from YouTube loads until a visitor actually asks to watch — the page stays
+// fast and no-JS visitors still get a working link. On click, the thumbnail
+// is swapped for the privacy-enhanced (youtube-nocookie) player, autoplaying.
+function initVideoEmbeds() {
+  document.querySelectorAll('.video-thumb[data-video-id]').forEach((thumb) => {
+    thumb.addEventListener('click', (event) => {
+      // Let modified clicks (new tab/window) fall through to the plain link.
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+
+      const iframe = document.createElement('iframe');
+      iframe.className = 'video-frame';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${thumb.dataset.videoId}?autoplay=1&rel=0`;
+      iframe.title = thumb.dataset.videoTitle || 'YouTube video player';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      thumb.replaceWith(iframe);
+      iframe.focus();
+    });
+  });
+}
+
 // ===== Bootstrap =====
 document.addEventListener('DOMContentLoaded', async () => {
+  initVideoEmbeds();
   await loadProjects();
   initReveal();
   initMobileNav();
