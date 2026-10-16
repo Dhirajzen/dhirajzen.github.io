@@ -450,7 +450,7 @@ header.hero h1 {
   .icon-links a:hover { transform: none; }
 }
 
-/* ===== At-a-glance strip (hero) =====
+/* ===== At-a-glance strip (case-study headers) =====
    Same value-over-label pattern as .project-stats, in the light palette. */
 .glance {
   display: flex;
@@ -481,12 +481,6 @@ header.hero h1 {
 .glance__label {
   font-size: 0.875rem;
   color: var(--text-dark-muted);
-}
-@media (max-width: 559px) {
-  .glance {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 /* ===== Section headings ===== */
@@ -1436,13 +1430,11 @@ html.js .status-pill[data-reveal] { transition-delay: 0.3s; }
 html.js .hero-subtitle[data-reveal] { transition-delay: 0.35s; }
 html.js .hero-actions[data-reveal] { transition-delay: 0.4s; }
 html.js .hero-icon-links[data-reveal] { transition-delay: 0.45s; }
-html.js .glance[data-reveal] { transition-delay: 0.5s; }
 @media (prefers-reduced-motion: reduce) {
   html.js .hero-headshot[data-reveal],
   html.js header.hero h1[data-reveal],
   html.js .status-pill[data-reveal],
   html.js .hero-subtitle[data-reveal],
   html.js .hero-actions[data-reveal],
-  html.js .hero-icon-links[data-reveal],
-  html.js .glance[data-reveal] { transition-delay: 0s; }
+  html.js .hero-icon-links[data-reveal] { transition-delay: 0s; }
 }
