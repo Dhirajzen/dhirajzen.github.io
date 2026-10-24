@@ -262,17 +262,39 @@
       <h2 id="videos-heading" data-reveal>Videos</h2>
       <p class="section-intro" data-reveal>I explain digital design and verification concepts on YouTube, worked through step by step from first principles.</p>
       <article class="video-card video-card--feature" data-reveal>
-        <a class="video-thumb" href="https://www.youtube.com/watch?v=6V32yWLrHxM" data-video-id="6V32yWLrHxM" data-video-title="Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)" aria-label="Play video: Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)">
-          <img src="https://i.ytimg.com/vi/6V32yWLrHxM/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+        <a class="video-thumb" href="https://www.youtube.com/watch?v=_Waa6wcDq2c" data-video-id="_Waa6wcDq2c" data-video-title="SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue" aria-label="Play video: SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue">
+          <img src="https://i.ytimg.com/vi/_Waa6wcDq2c/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="video-thumb__play" aria-hidden="true"></span>
         </a>
         <div class="video-card__body">
-          <p class="video-card__topic">Latest · Verification case study</p>
-          <h3>Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)</h3>
-          <p>A 12-minute design verification case study of the Pentium FDIV bug, built on my own bit-level model of its SRT divider: why 1,000,000 random tests never touched the 5 defective table cells, and how coverage and formal proofs catch bugs like it.</p>
+          <p class="video-card__topic">Latest · SystemVerilog</p>
+          <h3>SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue</h3>
+          <p>A 15-minute explainer on what a simulator does inside one moment of simulation time. It walks through the 9 scheduling regions step by step, showing where race conditions come from and how nonblocking assignments, $strobe, clocking blocks and deferred assertions avoid them. Every result is checked against a model of the IEEE 1800-2023 scheduler.</p>
         </div>
       </article>
       <div class="video-grid">
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=QjKKdYU0iMw" data-video-id="QjKKdYU0iMw" data-video-title="How Chip Teams Decide Verification Is Finished: Sign-Off Criteria" aria-label="Play video: How Chip Teams Decide Verification Is Finished: Sign-Off Criteria">
+            <img src="https://i.ytimg.com/vi/QjKKdYU0iMw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Verification sign-off</p>
+            <h3>How Chip Teams Decide Verification Is Finished: Sign-Off Criteria</h3>
+            <p>Testing can never prove a chip has no bugs, so how does a DV team decide it’s done? Covers the verification plan, code vs functional coverage, three ways to close a coverage hole, mutation testing, bug-rate curves and the sign-off review, with a simulated FIFO bug as the running example.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=6V32yWLrHxM" data-video-id="6V32yWLrHxM" data-video-title="Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)" aria-label="Play video: Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)">
+            <img src="https://i.ytimg.com/vi/6V32yWLrHxM/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Verification case study</p>
+            <h3>Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)</h3>
+            <p>A design verification case study of the Pentium FDIV bug, built on my own bit-level model of its SRT divider: why 1,000,000 random tests never touched the 5 defective table cells, and how coverage and formal proofs catch bugs like it.</p>
+          </div>
+        </article>
         <article class="video-card" data-reveal>
           <a class="video-thumb" href="https://www.youtube.com/watch?v=ET1wU6dEvhg" data-video-id="ET1wU6dEvhg" data-video-title="FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)" aria-label="Play video: FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)">
             <img src="https://i.ytimg.com/vi/ET1wU6dEvhg/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
@@ -317,7 +339,7 @@
              onerror="this.closest('.about-layout').classList.add('about-layout--no-photo'); this.remove();">
         <div class="about-text">
           <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon. I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
-          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to ECC and the Pentium FDIV bug.</p>
+          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to ECC, the Pentium FDIV bug and how SystemVerilog schedules events.</p>
         </div>
       </div>
 

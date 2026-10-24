@@ -884,9 +884,9 @@ main > section h2:has(+ .section-intro) { margin-bottom: 0.75rem; }
 }
 .video-grid {
   display: grid;
-  /* auto-fit (not auto-fill) so the 3 cards stretch to fill the row instead
-     of leaving an empty 4th track on wide screens. */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  /* Fixed column counts (3 / 2 / 1) so cards fill rows evenly instead of
+     a lone card dangling on its own row. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1.25rem, 2.5vw, 2rem);
 }
 .video-card {
@@ -963,6 +963,12 @@ main > section h2:has(+ .section-intro) { margin-bottom: 0.75rem; }
   color: var(--text-dark-muted);
 }
 .video-card sup { line-height: 0; }
+@media (max-width: 999px) {
+  .video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
 /* Newest video: thumbnail beside the text, above the grid of earlier ones.
    The thumbnail stretches to the row height (cropping via object-fit) so a
    long description never leaves blank bands above and below it. */
