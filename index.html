@@ -262,17 +262,61 @@
       <h2 id="videos-heading" data-reveal>Videos</h2>
       <p class="section-intro" data-reveal>I explain digital design and verification concepts on YouTube, worked through step by step from first principles.</p>
       <article class="video-card video-card--feature" data-reveal>
-        <a class="video-thumb" href="https://www.youtube.com/watch?v=7TfznptB_1A" data-video-id="7TfznptB_1A" data-video-title="Why Intel’s 13th and 14th Gen CPUs Wore Out So Fast" aria-label="Play video: Why Intel’s 13th and 14th Gen CPUs Wore Out So Fast">
-          <img src="https://i.ytimg.com/vi/7TfznptB_1A/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+        <a class="video-thumb" href="https://www.youtube.com/watch?v=3E9-NzENh7w" data-video-id="3E9-NzENh7w" data-video-title="Why Do Ryzen 7000 CPUs Run This Hot on Purpose" aria-label="Play video: Why Do Ryzen 7000 CPUs Run This Hot on Purpose">
+          <img src="https://i.ytimg.com/vi/3E9-NzENh7w/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
           <span class="video-thumb__play" aria-hidden="true"></span>
         </a>
         <div class="video-card__body">
-          <p class="video-card__topic">Latest · Reliability case study</p>
-          <h3>Why Intel’s 13th and 14th Gen CPUs Wore Out So Fast</h3>
-          <p>An animated case study of Intel’s Raptor Lake instability, from the first game crashes to Intel’s root cause. It takes the three phrases in Intel’s verdict (Vmin shift, clock tree, duty cycle) down to the transistor level, shows how uneven aging turns a clock lopsided, and closes with what a testbench could have measured before any chip reached a customer. Researched from primary sources, with the animations built in code (Python/Manim and JavaScript).</p>
+          <p class="video-card__topic">Latest · Thermal design</p>
+          <h3>Why Do Ryzen 7000 CPUs Run This Hot on Purpose</h3>
+          <p>A Ryzen 9 7950X hits 95°C under a small air cooler, a big tower cooler and a 280 mm liquid cooler, and AMD calls that “intended and by design.” This case study follows the heat from the transistors to the cooler to find where it actually gets stuck, shows how the chip measures its own temperature and what steers it to that number, asks whether 95°C is safe, and closes with how a thermal control loop gets tested before the silicon exists.</p>
         </div>
       </article>
       <div class="video-grid">
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=v4F3_vBnqcU" data-video-id="v4F3_vBnqcU" data-video-title="Why the Early Internet’s Machines Kept Failing (Clock Domain Crossing)" aria-label="Play video: Why the Early Internet’s Machines Kept Failing (Clock Domain Crossing)">
+            <img src="https://i.ytimg.com/vi/v4F3_vBnqcU/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">CDC case study</p>
+            <h3>Why the Early Internet’s Machines Kept Failing (Clock Domain Crossing)</h3>
+            <p>In 1969 the machines built to start the network that became the internet crashed about once a day in testing, with no failed part. It follows that bug, one flip-flop that couldn’t make up its mind, from BBN’s lab to today’s chips: metastability, synchronizers, Gray code, async FIFOs and how verification engineers catch it.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=go0LtEd1VUc" data-video-id="go0LtEd1VUc" data-video-title="The Silicon Lottery Explained: How Setup and Hold Time Limit Your CPU" aria-label="Play video: The Silicon Lottery Explained: How Setup and Hold Time Limit Your CPU">
+            <img src="https://i.ytimg.com/vi/go0LtEd1VUc/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Static timing</p>
+            <h3>The Silicon Lottery Explained: How Setup and Hold Time Limit Your CPU</h3>
+            <p>Why two CPUs of the same model rarely reach the same clock speed: the setup and hold deadline every path must meet, process variation, why voltage and cold help, how chips are binned, and the margin engineers build in before a single chip is made.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=7TfznptB_1A" data-video-id="7TfznptB_1A" data-video-title="Why Intel’s 13th and 14th Gen CPUs Wore Out, and Why a Patch Can’t Undo It" aria-label="Play video: Why Intel’s 13th and 14th Gen CPUs Wore Out, and Why a Patch Can’t Undo It">
+            <img src="https://i.ytimg.com/vi/7TfznptB_1A/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Reliability case study</p>
+            <h3>Why Intel’s 13th and 14th Gen CPUs Wore Out, and Why a Patch Can’t Undo It</h3>
+            <p>An animated case study of Intel’s Raptor Lake instability, from the first game crashes to Intel’s root cause: Vmin shift, clock tree and duty cycle taken down to the transistor level, how uneven aging turns a clock lopsided, and what a testbench could have measured first.</p>
+          </div>
+        </article>
+        <article class="video-card" data-reveal>
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=bqGnVSaRo10" data-video-id="bqGnVSaRo10" data-video-title="Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It" aria-label="Play video: Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It">
+            <img src="https://i.ytimg.com/vi/bqGnVSaRo10/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+            <span class="video-thumb__play" aria-hidden="true"></span>
+          </a>
+          <div class="video-card__body">
+            <p class="video-card__topic">Security bug case study</p>
+            <h3>Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It</h3>
+            <p>The bug that shipped in every AMD Zen 2 processor, seen from the verification seat: how a zeroed register leaked data, how a fuzzer found it by checking the chip against itself, why the usual testbench missed it, and what catches bugs like it now.</p>
+          </div>
+        </article>
         <article class="video-card" data-reveal>
           <a class="video-thumb" href="https://www.youtube.com/watch?v=_Waa6wcDq2c" data-video-id="_Waa6wcDq2c" data-video-title="SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue" aria-label="Play video: SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue">
             <img src="https://i.ytimg.com/vi/_Waa6wcDq2c/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
@@ -307,35 +351,35 @@
           </div>
         </article>
         <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=ET1wU6dEvhg" data-video-id="ET1wU6dEvhg" data-video-title="FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)" aria-label="Play video: FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)">
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=ET1wU6dEvhg" data-video-id="ET1wU6dEvhg" data-video-title="FIFO Depth Calculation: 8 Traps (and How to Solve Them)" aria-label="Play video: FIFO Depth Calculation: 8 Traps (and How to Solve Them)">
             <img src="https://i.ytimg.com/vi/ET1wU6dEvhg/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
             <span class="video-thumb__play" aria-hidden="true"></span>
           </a>
           <div class="video-card__body">
             <p class="video-card__topic">Interview prep</p>
-            <h3>FIFO Depth Calculation: 8 Interview Traps (and How to Beat Them)</h3>
+            <h3>FIFO Depth Calculation: 8 Traps (and How to Solve Them)</h3>
             <p>One idea answers every version of “how deep must this FIFO be?”: it only has to hold the backlog that builds while writes outpace reads. It solves the standard case, then works through eight traps, from idle cycles and the 2X trap to back-to-back bursts and async margin.</p>
           </div>
         </article>
         <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=NLQoDZw3vug" data-video-id="NLQoDZw3vug" data-video-title="Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist" aria-label="Play video: Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist">
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=NLQoDZw3vug" data-video-id="NLQoDZw3vug" data-video-title="How Data Crosses Between 2 Clock Domains: The Async FIFO" aria-label="Play video: How Data Crosses Between 2 Clock Domains: The Async FIFO">
             <img src="https://i.ytimg.com/vi/NLQoDZw3vug/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
             <span class="video-thumb__play" aria-hidden="true"></span>
           </a>
           <div class="video-card__body">
             <p class="video-card__topic">Clock domain crossing</p>
-            <h3>Async FIFO Explained: Gray Code, Synchronizers and the Full-Flag Twist</h3>
+            <h3>How Data Crosses Between 2 Clock Domains: The Async FIFO</h3>
             <p>Builds an asynchronous FIFO step by step to show how data crosses safely between two unrelated clocks: the lap bit, metastability and the two-flop synchronizer, why a binary pointer going from 7 to 8 can arrive as 15, and how Gray code fixes it.</p>
           </div>
         </article>
         <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=aiX9myUAh60" data-video-id="aiX9myUAh60" data-video-title="How a Single Bit Changed an Election Count: Error Correcting Code (ECC) Explained" aria-label="Play video: How a Single Bit Changed an Election Count: Error Correcting Code (ECC) Explained">
+          <a class="video-thumb" href="https://www.youtube.com/watch?v=aiX9myUAh60" data-video-id="aiX9myUAh60" data-video-title="How Chips Survive a Bit Flip: Error Correcting Code (ECC)" aria-label="Play video: How Chips Survive a Bit Flip: Error Correcting Code (ECC)">
             <img src="https://i.ytimg.com/vi/aiX9myUAh60/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
             <span class="video-thumb__play" aria-hidden="true"></span>
           </a>
           <div class="video-card__body">
             <p class="video-card__topic">Reliability &amp; ECC</p>
-            <h3>How a Single Bit Changed an Election Count: Error Correcting Code (ECC) Explained</h3>
+            <h3>How Chips Survive a Bit Flip: Error Correcting Code (ECC)</h3>
             <p>A 2003 Belgian election gave one candidate exactly 4,096 extra votes: 2<sup>12</sup>, a single flipped bit. What a bit flip is, how chips survive one with parity and ECC, and how verification engineers use fault injection to prove every flip gets fixed or caught.</p>
           </div>
         </article>
@@ -350,7 +394,7 @@
              onerror="this.closest('.about-layout').classList.add('about-layout--no-photo'); this.remove();">
         <div class="about-text">
           <p data-reveal>I recently completed my MS in Computer Engineering at NYU Tandon. I specialize in ASIC Design Verification — UVM, SystemVerilog, and constrained-random verification across industry-standard protocols — and I build LLM/RAG tooling on top of that workflow to cut down manual toil in spec lookup, stimulus generation, and coverage closure.</p>
-          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to ECC, the Pentium FDIV bug, how SystemVerilog schedules events and why Intel’s Raptor Lake chips wore out.</p>
+          <p data-reveal>I also explain digital design and verification concepts on <a href="https://www.youtube.com/@dhirajzen30">YouTube</a> — from FIFO sizing and clock domain crossing to ECC, the Pentium FDIV and Zenbleed bugs, the silicon lottery, how SystemVerilog schedules events, why Intel’s Raptor Lake chips wore out and why Ryzen 7000 runs hot on purpose.</p>
         </div>
       </div>
 
