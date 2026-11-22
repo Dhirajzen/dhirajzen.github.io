@@ -992,17 +992,17 @@ main > section h2:has(+ .section-intro) { margin-bottom: 0.75rem; }
 @media (max-width: 799px) {
   .video-card--feature { grid-template-columns: 1fr; }
 }
-/* Three columns with one card left over: rather than leave it alone in the
-   last row, lay it out wide (thumbnail beside text) across the full row. */
-@media (min-width: 1000px) {
-  .video-grid > .video-card:last-child:nth-child(3n+1) {
+/* Two columns with one card left over (3 cards on tablets): rather than
+   leave it alone in the last row, lay it out wide across the full row. */
+@media (min-width: 640px) and (max-width: 999px) {
+  .video-grid > .video-card:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
-  .video-grid > .video-card:last-child:nth-child(3n+1) > .video-thumb,
-  .video-grid > .video-card:last-child:nth-child(3n+1) > .video-frame { align-self: stretch; }
-  .video-grid > .video-card:last-child:nth-child(3n+1) .video-card__body { align-self: center; }
+  .video-grid > .video-card:last-child:nth-child(odd) > .video-thumb,
+  .video-grid > .video-card:last-child:nth-child(odd) > .video-frame { align-self: stretch; }
+  .video-grid > .video-card:last-child:nth-child(odd) .video-card__body { align-self: center; }
 }
 .videos-cta { margin-top: 2rem; }
 @media (prefers-reduced-motion: reduce) {

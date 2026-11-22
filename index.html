@@ -306,85 +306,8 @@
             <p>An animated case study of Intel’s Raptor Lake instability, from the first game crashes to Intel’s root cause: Vmin shift, clock tree and duty cycle taken down to the transistor level, how uneven aging turns a clock lopsided, and what a testbench could have measured first.</p>
           </div>
         </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=bqGnVSaRo10" data-video-id="bqGnVSaRo10" data-video-title="Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It" aria-label="Play video: Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It">
-            <img src="https://i.ytimg.com/vi/bqGnVSaRo10/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Security bug case study</p>
-            <h3>Zenbleed: The CPU Bug That Leaked Data and How a Fuzzer Found It</h3>
-            <p>The bug that shipped in every AMD Zen 2 processor, seen from the verification seat: how a zeroed register leaked data, how a fuzzer found it by checking the chip against itself, why the usual testbench missed it, and what catches bugs like it now.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=_Waa6wcDq2c" data-video-id="_Waa6wcDq2c" data-video-title="SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue" aria-label="Play video: SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue">
-            <img src="https://i.ytimg.com/vi/_Waa6wcDq2c/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">SystemVerilog</p>
-            <h3>SystemVerilog Scheduling Regions, Visualized: The Stratified Event Queue</h3>
-            <p>What a simulator does inside one moment of simulation time: the 9 scheduling regions step by step, where race conditions come from, and how nonblocking assignments, $strobe, clocking blocks and deferred assertions avoid them. Checked against a model of the IEEE 1800-2023 scheduler.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=QjKKdYU0iMw" data-video-id="QjKKdYU0iMw" data-video-title="How Chip Teams Decide Verification Is Finished: Sign-Off Criteria" aria-label="Play video: How Chip Teams Decide Verification Is Finished: Sign-Off Criteria">
-            <img src="https://i.ytimg.com/vi/QjKKdYU0iMw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Verification sign-off</p>
-            <h3>How Chip Teams Decide Verification Is Finished: Sign-Off Criteria</h3>
-            <p>Testing can never prove a chip has no bugs, so how does a DV team decide it’s done? Covers the verification plan, code vs functional coverage, three ways to close a coverage hole, mutation testing, bug-rate curves and the sign-off review, with a simulated FIFO bug as the running example.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=6V32yWLrHxM" data-video-id="6V32yWLrHxM" data-video-title="Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)" aria-label="Play video: Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)">
-            <img src="https://i.ytimg.com/vi/6V32yWLrHxM/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Verification case study</p>
-            <h3>Why Random Tests Missed Intel’s $475M Bug (Coverage &amp; Formal Proofs)</h3>
-            <p>A design verification case study of the Pentium FDIV bug, built on my own bit-level model of its SRT divider: why 1,000,000 random tests never touched the 5 defective table cells, and how coverage and formal proofs catch bugs like it.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=ET1wU6dEvhg" data-video-id="ET1wU6dEvhg" data-video-title="FIFO Depth Calculation: 8 Traps (and How to Solve Them)" aria-label="Play video: FIFO Depth Calculation: 8 Traps (and How to Solve Them)">
-            <img src="https://i.ytimg.com/vi/ET1wU6dEvhg/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Interview prep</p>
-            <h3>FIFO Depth Calculation: 8 Traps (and How to Solve Them)</h3>
-            <p>One idea answers every version of “how deep must this FIFO be?”: it only has to hold the backlog that builds while writes outpace reads. It solves the standard case, then works through eight traps, from idle cycles and the 2X trap to back-to-back bursts and async margin.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=NLQoDZw3vug" data-video-id="NLQoDZw3vug" data-video-title="How Data Crosses Between 2 Clock Domains: The Async FIFO" aria-label="Play video: How Data Crosses Between 2 Clock Domains: The Async FIFO">
-            <img src="https://i.ytimg.com/vi/NLQoDZw3vug/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Clock domain crossing</p>
-            <h3>How Data Crosses Between 2 Clock Domains: The Async FIFO</h3>
-            <p>Builds an asynchronous FIFO step by step to show how data crosses safely between two unrelated clocks: the lap bit, metastability and the two-flop synchronizer, why a binary pointer going from 7 to 8 can arrive as 15, and how Gray code fixes it.</p>
-          </div>
-        </article>
-        <article class="video-card" data-reveal>
-          <a class="video-thumb" href="https://www.youtube.com/watch?v=aiX9myUAh60" data-video-id="aiX9myUAh60" data-video-title="How Chips Survive a Bit Flip: Error Correcting Code (ECC)" aria-label="Play video: How Chips Survive a Bit Flip: Error Correcting Code (ECC)">
-            <img src="https://i.ytimg.com/vi/aiX9myUAh60/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
-            <span class="video-thumb__play" aria-hidden="true"></span>
-          </a>
-          <div class="video-card__body">
-            <p class="video-card__topic">Reliability &amp; ECC</p>
-            <h3>How Chips Survive a Bit Flip: Error Correcting Code (ECC)</h3>
-            <p>A 2003 Belgian election gave one candidate exactly 4,096 extra votes: 2<sup>12</sup>, a single flipped bit. What a bit flip is, how chips survive one with parity and ECC, and how verification engineers use fault injection to prove every flip gets fixed or caught.</p>
-          </div>
-        </article>
       </div>
-      <a class="btn btn--primary videos-cta" href="https://www.youtube.com/@dhirajzen30" data-reveal>Subscribe on YouTube</a>
+      <a class="btn btn--primary videos-cta" href="https://www.youtube.com/@dhirajzen30/videos" data-reveal>See all videos on YouTube</a>
     </section>
 
     <section id="about" aria-labelledby="about-heading">
